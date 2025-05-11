@@ -1,15 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const LoginForm = () => {
+const LoginForm = ({ onLogin }) => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Ngăn form reload
+        onLogin(username, password); // Gọi callback từ Login.jsx
+    };
+
     return (
         <div className="login-form-box">
             <h3 className="mb-30">Login</h3>
-            <form className="login-form" action="#">
+            <form className="login-form" onSubmit={handleSubmit}>
                 <div className="input-box mb--30">
-                    <input type="text" placeholder="Username or Email" />
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
                 </div>
                 <div className="input-box mb--30">
-                    <input type="password" placeholder="Password" />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
                 </div>
                 <div className="comment-form-consent input-box mb--30">
                     <input id="checkbox-1" type="checkbox" />
@@ -23,7 +41,7 @@ const LoginForm = () => {
                 </div>
             </form>
         </div>
-    )
-}
+    );
+};
 
 export default LoginForm;

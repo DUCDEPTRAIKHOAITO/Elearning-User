@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const BannerFive = ( props ) => {
     const [toggler, setToggler] = useState(false);
     const videoLink = [
-        props.videoLink || 'https://www.youtube.com/watch?v=pNje3bWz7V8'
+        props.videoLink || 'https://www.youtube.com/watch?v=pLlR3iwK1rM'
     ];
     return (
         <>
@@ -16,15 +16,15 @@ const BannerFive = ( props ) => {
                             <div className="col-lg-6 order-2 order-lg-1">
                                 <div className="inner pt--100 pt_md--0 pt_sm--0">
                                     <div className="content text-start">
-                                        <h1 className="title">Education Is A Path To Success In Life</h1>
-                                        <p className="description">Sed eu volutpat arcu, a tincidunt nulla quam, feugiat sit amet ipsum a, dapibus porta velit.</p>
+                                        <h1 className="title">Chào mừng đến với khóa học của tôi!</h1>
+                                        <p className="description">Đây là khóa học chất lượng cao đạt tiêu chuẩn quốc tế.</p>
                                         <div className="read-more-btn">
-                                            <Link className="edu-btn" to="#">Get Started <i className="icon-arrow-right-line-right"></i></Link>
+                                            <Link className="edu-btn" to="/course-5" target='_blank'>Bắt đầu <i className="icon-arrow-right-line-right"></i></Link>
                                             <div className="video-btn-wrapper" onClick={ () => setToggler( ! toggler ) }>
                                                 <button onClick={ () => setToggler( ! toggler ) } className="video-play-btn with-animation video-popup-activation">
                                                     <span className="play-icon"></span>
                                                 </button>
-                                                <span className="video-text">Watch Video</span>
+                                                <span className="video-text">Xem Video</span>
                                             </div>
                                         </div>
                                     </div>
@@ -33,22 +33,7 @@ const BannerFive = ( props ) => {
                             <div className="col-lg-6 order-1 order-lg-2">
                                 <div className="banner-image">
                                     <div className="thumbnail">
-                                        <img src="/images/banner/banner-05/banner-04.png" alt="Banner Images" />
-                                    </div>
-                                    <div className="card-info bounce-slide">
-                                        <div className="inner">
-                                            <div className="name">Shophia D. <span>/ Professior</span></div>
-                                            <div className="rating-wrapper d-flex">
-                                                <div className="rating eduvibe-course-rating-stars">
-                                                    <i className="icon-Star"></i>
-                                                    <i className="icon-Star"></i>
-                                                    <i className="icon-Star"></i>
-                                                    <i className="icon-Star"></i>
-                                                    <i className="icon-Star"></i>
-                                                </div>
-                                                <span>(2567)</span>
-                                            </div>
-                                        </div>
+                                        <img src="https://dongphuchaianh.com/wp-content/uploads/2022/03/tao-dang-tu-nhien-ao-cu-nhan.jpg" alt="Banner Images" />
                                     </div>
                                 </div>
                             </div>

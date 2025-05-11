@@ -7,18 +7,18 @@ const HomeFiveProgress = () => {
         <div className="eduvibe-home-five-progress  edu-service-area edu-section-gap bg-image">
             <div className="container eduvibe-animated-shape">
                 <div className="row">
-                    <div className="col-lg-12">
+                    {/* <div className="col-lg-12">
                         <SectionTitle
                             classes = "text-center"
                             slogan = "What We Offer"
                             title = "How Does Edulamp Work?"
                         />
-                    </div>
+                    </div> */}
                 </div>
 
-                <HowItWorksOne />
+                {/* <HowItWorksOne /> */}
 
-                <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
+                {/* <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
                     <div className="shape-image shape-image-1">
                         <img src="/images/shapes/shape-07-02.png" alt="Shape Thumb" />
                     </div>
@@ -28,7 +28,7 @@ const HomeFiveProgress = () => {
                     <div className="shape-image shape-image-3">
                         <img src="/images/shapes/shape-13-11.png" alt="Shape Thumb" />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )

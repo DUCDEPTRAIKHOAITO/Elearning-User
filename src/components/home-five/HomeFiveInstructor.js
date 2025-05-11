@@ -10,15 +10,15 @@ const HomeFiveInstructor = () => {
         <div className="eduvibe-home-five-instructor edu-elements-area edu-section-gap bg-color-white">
             <div className="container eduvibe-animated-shape">
                 <div className="row g-5">
-                    <div className="col-lg-12">
+                    {/* <div className="col-lg-12">
                         <SectionTitle
                             classes = "text-center"
                             slogan = "Skilled Instructor"
                             title = "Introduce Our Life Coaches"
                         />
-                    </div>
+                    </div> */}
                 </div>
-                <div className="row g-5 mt--5">
+                {/* <div className="row g-5 mt--5">
                     { 
                         TeamMembers.map( ( item ) => (
                             <ScrollAnimation 
@@ -32,7 +32,7 @@ const HomeFiveInstructor = () => {
                             </ScrollAnimation>
                         ) )
                     }
-                </div>
+                </div> */}
 
                 <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
                     <div className="shape-image shape-image-1">

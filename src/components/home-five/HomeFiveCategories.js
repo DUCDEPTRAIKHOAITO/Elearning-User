@@ -10,8 +10,8 @@ const HomeFiveCategories = () => {
                 <div className="row g-5">
                     <div className="col-lg-12">
                         <SectionTitle
-                            slogan = "Top Categories"
-                            title = "Browse Popular Category"
+                            slogan = "Các danh mục hàng đầu"
+                            title = "Danh mục phổ biến"
                         />
                     </div>
                 </div>

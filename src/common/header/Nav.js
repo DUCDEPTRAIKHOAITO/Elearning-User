@@ -5,7 +5,7 @@ const Nav = () => {
     return (
         <ul className="mainmenu">
             <li className="has-droupdown">
-                <Link to="#">Home</Link>
+                {/* <Link to="#">Home</Link>
                 <ul className="submenu">
                     <li><Link to="/home-1">Home 1</Link></li>
                     <li><Link to="/home-2">Home 2</Link></li>
@@ -13,7 +13,7 @@ const Nav = () => {
                     <li><Link to="/home-4">Home 4</Link></li>
                     <li><Link to="/home-5">Home 5</Link></li>
                     <li><Link to="/">Landing Demo</Link></li>
-                </ul>
+                </ul> */}
             </li>
 
             <li className="has-droupdown">
@@ -33,14 +33,14 @@ const Nav = () => {
                     <li><Link to="/course-3">Course 3</Link></li>
                     <li><Link to="/course-4">Course 4</Link></li>
                     <li><Link to="/course-5">Course 5</Link></li>
-                    <li><Link to="/course-details/2">Course Details 1</Link></li>
+                    {/* <li><Link to="/course-details/2">Course Details 1</Link></li>
                     <li><Link to="/course-details-two/1">Course Details 2</Link></li>
                     <li><Link to="/course-filter-1">Course Filter 1</Link></li>
                     <li><Link to="/course-filter-2">Course Filter 2</Link></li>
                     <li><Link to="/course-filter-sidebar">Course Filter Sidebar</Link></li>
                     <li><Link to="/course-carousel">Course Carousel</Link></li>
                     <li><Link to="/course-load-more">Course( Load More )</Link></li>
-                    <li><Link to="/course-category/business">Course Category Archive</Link></li>
+                    <li><Link to="/course-category/business">Course Category Archive</Link></li> */}
                 </ul>
             </li>
             
@@ -80,8 +80,8 @@ const Nav = () => {
                     <li><Link to="/purchase-guide">Purchase Guide</Link></li>
                     <li><Link to="/testimonial">Testimonial</Link></li>
                     <li><Link to="/coming-soon">Coming Soon</Link></li>
-                    <li><Link to="/login-register">Login/Register</Link></li>
-                    <li><Link to="/404">404</Link></li>
+                    <li><Link to="/login">Login/Register</Link></li>
+                    {/* <li><Link to="/404">404</Link></li> */}
                 </ul>
             </li>
             
@@ -90,7 +90,7 @@ const Nav = () => {
                     <li><Link to="/blog-grid-1">Blog Grid 1</Link></li>
                     <li><Link to="/blog-grid-2">Blog Grid 2</Link></li>
                     <li><Link to="/blog-grid-3">Blog Grid 3</Link></li>
-                    <li><Link to="/blog-carousel">Blog Carousel</Link></li>
+                    {/* <li><Link to="/blog-carousel">Blog Carousel</Link></li>
                     <li><Link to="/blog-standard">Blog Standard</Link></li>
                     <li><Link to="/blog-grid-right-sidebar">Blog( Right Sidebar )</Link></li>
                     <li><Link to="/blog-grid-left-sidebar">Blog( Left Sidebar )</Link></li>
@@ -100,7 +100,7 @@ const Nav = () => {
                     <li><Link to="/blog-details-right-sidebar/1">Blog Details 3</Link></li>
                     <li><Link to="/category/education">Category Archive</Link></li>
                     <li><Link to="/tag/finance">Tag Archive</Link></li>
-                    <li><Link to="/author/hazel-thomas">Author Archive</Link></li>
+                    <li><Link to="/author/hazel-thomas">Author Archive</Link></li> */}
                 </ul>
             </li>
 

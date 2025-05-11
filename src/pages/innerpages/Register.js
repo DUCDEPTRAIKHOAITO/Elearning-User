@@ -5,25 +5,22 @@ import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
 import LoginForm from '../../components/form/LoginForm';
 import RegisterForm from '../../components/form/RegisterForm';
 
-const LoginRegister = () => {
+const Register = () => {
     return (
         <>
-            <SEO title="Login & Register" />
+            <SEO title="Register" />
             <Layout>
 
                 <BreadcrumbOne 
-                    title="Login & Register"
+                    title="Register"
                     rootUrl="/"
                     parentUrl="Home"
-                    currentUrl="Login & Register"
+                    currentUrl="Register"
                 />
 
                 <div className="login-register-page-wrapper edu-section-gap bg-color-white">
                     <div className="container checkout-page-style">
                         <div className="row g-5">
-                            <div className="col-lg-6">
-                                <LoginForm />
-                            </div>
                             <div className="col-lg-6">
                                 <RegisterForm />
                             </div>
@@ -35,4 +32,4 @@ const LoginRegister = () => {
     )
 }
 
-export default LoginRegister;
+export default Register;

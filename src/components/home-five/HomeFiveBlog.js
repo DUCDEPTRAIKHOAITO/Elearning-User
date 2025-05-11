@@ -7,19 +7,19 @@ const HomeFiveBlog = () => {
         <div className="eduvibe-home-five-blog edu-blog-area edu-section-gap bg-image">
             <div className="container eduvibe-animated-shape">
                 <div className="row">
-                    <div className="col-lg-12">
+                    {/* <div className="col-lg-12">
                         <SectionTitle
                             classes = "text-center"
                             slogan = "Blog & News"
                             title = "Our Latest News Feed"
                         />
-                    </div>
+                    </div> */}
                 </div>
-                <div className="row g-5 mt--10">
+                {/* <div className="row g-5 mt--10">
                     <PostFour />
-                </div>
+                </div> */}
 
-                <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
+                {/* <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
                     <div className="shape-image shape-image-1">
                         <img src="/images/shapes/shape-23-01.png" alt="Shape Thumb" />
                     </div>
@@ -29,14 +29,14 @@ const HomeFiveBlog = () => {
                     <div className="shape-image shape-image-3">
                         <img src="/images/shapes/shape-04-01.png" alt="Shape Thumb" />
                     </div>
-                </div>
+                </div> */}
             </div>
-
+{/* 
             <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
                 <div className="shape-image shape-image-2">
                     <img src="/images/shapes/shape-24-01.png" alt="Shape Thumb" />
-                </div>
-            </div>
+                </div> */}
+            {/* </div> */}
         </div>
     )
 }

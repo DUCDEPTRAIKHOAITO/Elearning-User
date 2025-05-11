@@ -14,13 +14,13 @@ const HomeFiveCourses = () => {
                     <div className="col-lg-6">
                         <SectionTitle
                             classes = "text-start"
-                            slogan = "Our Courses"
-                            title = "Featured Courses"
+                            slogan = "Các khóa học của chúng tôi"
+                            title = "Các khóa học nổi bật"
                         />
                     </div>
                     <div className="col-lg-6">
                         <div className="view-more-btn text-end">
-                            <Link className="edu-btn" to="/course-1">Browse All Courses<i className="icon-arrow-right-line-right"></i></Link>
+                            <Link className="edu-btn" to="/course-1"> Các khóa học<i className="icon-arrow-right-line-right"></i></Link>
                         </div>
                     </div>
                 </div>
