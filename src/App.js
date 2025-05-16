@@ -58,13 +58,13 @@ import PurchaseGuide from './pages/innerpages/PurchaseGuide';
 import Testimonial from './pages/innerpages/Testimonial';
 import InstructorDetails from './pages/detailspages/InstructorDetails';
 import Error from './pages/innerpages/Error';
-
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-
-// Import Css Here 
+// Import Css Here
 import './assets/scss/style.scss';
 import Login from './pages/innerpages/Login';
+import Users from './Users/Users';
+import './App.css';
 
 
 function App() {
@@ -73,11 +73,11 @@ function App() {
             <ScrollToTop>
                 <Routes>
                     <Route exact path='/' element={<HomeFive />} />
-                    {/* <Route exact path={`${process.env.PUBLIC_URL + '/home-1'}`} element={<HomeOne />} />
+                    <Route exact path={`${process.env.PUBLIC_URL + '/home-1'}`} element={<HomeOne />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/home-2'}`} element={<HomeTwo />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/home-3'}`} element={<HomeThree />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/home-4'}`} element={<HomeFour />} />
-                    <Route exact path={`${process.env.PUBLIC_URL + '/home-5'}`} element={<HomeFive />} /> */}
+                    <Route exact path={`${process.env.PUBLIC_URL + '/home-5'}`} element={<HomeFive />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/about-us-1'}`} element={<AboutUsOne />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/about-us-2'}`} element={<AboutUsTwo />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/about-us-3'}`} element={<AboutUsThree />} />
@@ -122,9 +122,8 @@ function App() {
                     <Route exact path={`${process.env.PUBLIC_URL + '/blog-standard'}`} element={<BlogStandard />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/blog-grid-right-sidebar'}`} element={<BlogGridRightSidebar />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/blog-grid-left-sidebar'}`} element={<BlogGridLeftSidebar />} />
-                    <Route exact path={`${process.env.PUBLIC_URL + '/login'}`} element={<Login />} />
+                    <Route exact path={`${process.env.PUBLIC_URL + '/login'}`} element={<LoginPage />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/register'}`} element={<RegisterPage />} />
-
                     <Route exact path={`${process.env.PUBLIC_URL + '/blog-details/:id'}`} element={<BlogDetailsOne />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/blog-details-left-sidebar/:id'}`} element={<BlogDetailsTwo />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/blog-details-right-sidebar/:id'}`} element={<BlogDetailsThree />} />
@@ -137,5 +136,4 @@ function App() {
         </Router>
     );
 }
-
 export default App;
