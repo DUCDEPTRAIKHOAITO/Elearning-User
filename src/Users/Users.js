@@ -25,7 +25,7 @@ function Users() {
 
     const getAllUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/users');
+            const response = await axios.get('http://localhost:3000/users');
             if (response) {
                 setUsersList(response.data);
             }

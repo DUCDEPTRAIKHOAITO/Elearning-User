@@ -19,9 +19,10 @@ const LoginPage = () => {
         }
 
         setError('');
+        setSuccess('');
 
         try {
-            const response = await fetch('http://your-backend-api/login', {
+            const response = await fetch('http://localhost:8080/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,7 +33,8 @@ const LoginPage = () => {
                 }),
             });
 
-            const data = await response.json();
+            const data = await response.text();
+
 
             if (response.ok) {
                 setSuccess('Đăng nhập thành công!');

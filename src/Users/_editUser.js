@@ -31,7 +31,7 @@ function EditUser(props) {
 
     const fetchUserData = async () => {
         try {
-            const response = await axios.get('http://localhost:4000/users/' + props.userId);
+            const response = await axios.get('http://localhost:3000/users/' + props.userId);
             if (response) {
                 console.log(response)
                 setUserInfo(response.data);
@@ -45,7 +45,7 @@ function EditUser(props) {
 
     const editExistUser = async () => {
         try {
-            const response = await axios.put('http://localhost:4000/users/' + props.userId, userInfo);
+            const response = await axios.put('http://localhost:3000/users/' + props.userId, userInfo);
             if (response) {
                 props.setUserEdited();
             }

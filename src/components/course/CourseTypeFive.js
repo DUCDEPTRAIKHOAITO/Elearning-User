@@ -34,7 +34,7 @@ const CourseTwo = ({ data, classes }) => {
                         }
                     </div>
                     <h6 className="title">
-                        <Link to={process.env.PUBLIC_URL + `/course-details/${data.id}`}>{data.title}</Link>
+                        <Link to={process.env.PUBLIC_URL + `/course-details/${data.id}`}>{data.name}</Link>
                     </h6>
                     <ul className="edu-meta meta-01">
                         <li><i className="icon-time-line"></i>{data.duration}</li>

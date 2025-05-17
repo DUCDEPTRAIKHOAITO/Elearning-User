@@ -28,7 +28,7 @@ function AddUser(props) {
 
     const addNewUser = async()=>{
         try{
-            const response = await axios.post('http://localhost:4000/users',userInfo);
+            const response = await axios.post('http://localhost:3000/users',userInfo);
             if(response){
                 props.setUserAdded();
             }

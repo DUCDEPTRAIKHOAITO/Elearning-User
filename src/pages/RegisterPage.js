@@ -39,7 +39,7 @@ const RegisterPage = () => {
 
         try {
             // Gửi dữ liệu đến backend API
-            const response = await fetch('http://localhost:8000/api/auth/register', {
+            const response = await fetch('http://localhost:8080/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,16 +118,16 @@ const RegisterPage = () => {
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                 </div>
-                <div className="form-group">
+                {/* <div className="form-group">
                     <label>
                         <input
                             type="checkbox"
                             checked={agreeTerms}
                             onChange={(e) => setAgreeTerms(e.target.checked)}
                         />
-                        Tôi đồng ý với các <Link to="/terms">điều khoản và điều kiện</Link>.
+                       
                     </label>
-                </div>
+                </div> */}
                 <button type="submit" className="edu-btn">Đăng ký</button>
             </form>
 
