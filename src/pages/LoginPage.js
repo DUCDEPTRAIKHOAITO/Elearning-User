@@ -22,31 +22,38 @@ const LoginPage = () => {
         setSuccess('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/auth/login', {
+            const response = await fetch('http://localhost:8080/api/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    email,
-                    password,
-                }),
+                body: JSON.stringify({ email, password }),
             });
 
-            const data = await response.text();
-
+            const data = await response.json();
 
             if (response.ok) {
+                // Dữ liệu là chuỗi JWT token
+                const token = data.token;
+                const username = data.username || data.name || '';
+
+                // Lưu token
+                if (rememberMe) {
+                    localStorage.setItem('token', token);
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('username', username);
+                } else {
+                    sessionStorage.setItem('token', token);
+                    sessionStorage.setItem('userEmail', email);
+                    sessionStorage.setItem('username', username);
+                }
+
                 setSuccess('Đăng nhập thành công!');
                 setError('');
-                if (rememberMe) {
-                    localStorage.setItem('token', data.token);
-                } else {
-                    sessionStorage.setItem('token', data.token);
-                }
                 navigate('/');
+                
             } else {
-                setError(data.message || 'Đăng nhập thất bại.');
+                setError(data || 'Đăng nhập thất bại.');
                 setSuccess('');
             }
         } catch (error) {
@@ -71,6 +78,7 @@ const LoginPage = () => {
                         placeholder="Nhập email của bạn"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        required
                     />
                 </div>
                 <div className="form-group">
@@ -81,18 +89,20 @@ const LoginPage = () => {
                         placeholder="Nhập mật khẩu"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </div>
-                <div className="form-group">
-                    <label>
-                        <input
-                            type="checkbox"
-                            checked={rememberMe}
-                            onChange={(e) => setRememberMe(e.target.checked)}
-                        />
-                        Ghi nhớ đăng nhập
-                    </label>
-                </div>
+                <div className="form-group remember-me-group">
+                <label className="custom-checkbox">
+                    <input
+                        type="checkbox"
+                        checked={rememberMe}
+                        onChange={(e) => setRememberMe(e.target.checked)}
+                    />
+                    <span className="checkmark"></span>
+                    Ghi nhớ đăng nhập
+                </label>
+            </div>
                 <button type="submit" className="edu-btn">Đăng nhập</button>
             </form>
 
@@ -103,4 +113,5 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+
+export default LoginPage

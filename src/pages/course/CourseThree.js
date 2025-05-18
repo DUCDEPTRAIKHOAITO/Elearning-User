@@ -12,10 +12,10 @@ const CourseThree = () => {
             <SEO title="Course Style - 3" />
             <Layout>
                 <BreadcrumbOne 
-                    title="Course Style - 3"
+                    title="Course Style - 1"
                     rootUrl="/"
                     parentUrl="Home"
-                    currentUrl="Course Style - 3"
+                    currentUrl="Course Style - 1"
                 />
                 <div className="edu-course-area edu-section-gap bg-color-white">
                     <div className="container">

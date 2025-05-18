@@ -1,14 +1,14 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Nav from './Nav';
 import HeaderSticky from './HeaderSticky';
 import ResponsiveMenu from './ResponsiveMenu';
 
-const HeaderTwo = ( { styles, disableSticky, searchDisable, buttonStyle } ) => {
+const HeaderTwo = ({ styles, disableSticky, searchDisable, buttonStyle }) => {
     const [offcanvasShow, setOffcanvasShow] = useState(false);
     const [searchPopup, setSearchPopup] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // State for login status
-    const [fullName, setFullName] = useState(''); // State for user's full name
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [fullName, setFullName] = useState('');
 
     const onCanvasHandler = () => {
         setOffcanvasShow(prevState => !prevState);
@@ -17,6 +17,21 @@ const HeaderTwo = ( { styles, disableSticky, searchDisable, buttonStyle } ) => {
     const onSearchHandler = () => {
         setSearchPopup(prevState => !prevState);
     };
+
+    useEffect(() => {
+        // Lấy username từ localStorage hoặc sessionStorage
+        const name =
+            localStorage.getItem('username') ||
+            sessionStorage.getItem('username') ||
+            '';
+        if (name) {
+            setIsLoggedIn(true);
+            setFullName(name);
+        } else {
+            setIsLoggedIn(false);
+            setFullName('');
+        }
+    }, []);
 
     if (searchPopup) {
         document.body.classList.add('search-popup-active');
@@ -58,9 +73,31 @@ const HeaderTwo = ( { styles, disableSticky, searchDisable, buttonStyle } ) => {
                                 }
                                 <div className="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
                                     {isLoggedIn ? (
-                                        <span className={`edu-btn btn-medium left-icon header-button ${buttonStyle || ''}`}>
+                                        <span className={`edu-btn btn-medium left-icon header-button ${buttonStyle || ''}`} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                                             <img src="https://i.pinimg.com/736x/7a/43/dd/7a43dd2411fda8c3685c393dafbc881c.jpg" alt="User Logo" style={{ maxWidth: '30px', maxHeight: '30px', marginRight: '10px' }} />
-                                            Hello, {fullName}
+                                            Helllo, {fullName}
+                                            <button
+                                                style={{
+                                                    marginLeft: '10px',
+                                                    padding: '4px 12px',
+                                                    border: 'none',
+                                                    borderRadius: '5px',
+                                                    background: '#f44336',
+                                                    color: '#fff',
+                                                    cursor: 'pointer'
+                                                }}
+                                                onClick={() => {
+                                                    localStorage.removeItem('token');
+                                                    localStorage.removeItem('userEmail');
+                                                    localStorage.removeItem('username');
+                                                    sessionStorage.removeItem('token');
+                                                    sessionStorage.removeItem('userEmail');
+                                                    sessionStorage.removeItem('username');
+                                                    window.location.reload();
+                                                }}
+                                            >
+                                                Đăng xuất
+                                            </button>
                                         </span>
                                     ) : (
                                         <Link className={`edu-btn btn-medium left-icon header-button ${buttonStyle || ''}`} to={process.env.PUBLIC_URL + "/login"}>
