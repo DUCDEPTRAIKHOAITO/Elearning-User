@@ -89,3 +89,158 @@ body{
   margin: 5px 0;
   font-size: 14px;
 }
+.edu-header  {
+    max-width: 120px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.header-right {
+    align-items: center;
+}
+
+.header-menu-bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.quote-icon.quote-username,
+.quote-icon.quote-user {
+    font-size: 1rem;
+    color: #222;
+    font-weight: 500;
+    background: #fff;
+    border-radius: 20px;
+    padding: 6px 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    margin-left: 10px;
+    white-space: nowrap;
+}
+
+@media (max-width: 991px) {
+    .edu-header .logo img {
+        max-width: 80px;
+    }
+    .header-menu-bar {
+        gap: 10px;
+    }
+}
+.login-page {
+    max-width: 400px;
+    margin: 60px auto;
+    padding: 32px 28px 24px 28px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+    text-align: center;
+}
+.login-page h1 {
+    margin-bottom: 28px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2d2d2d;
+}
+.login-page .form-group {
+    margin-bottom: 18px;
+    text-align: left;
+}
+.login-page label {
+    font-weight: 500;
+    margin-bottom: 6px;
+    display: block;
+    color: #333;
+}
+.login-page input[type="email"],
+.login-page input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 1rem;
+    margin-top: 4px;
+    background: #fafbfc;
+    transition: border 0.2s;
+}
+.login-page input[type="email"]:focus,
+.login-page input[type="password"]:focus {
+    border: 1.5px solid #3f51b5;
+    outline: none;
+    background: #fff;
+}
+.login-page input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+.edu-btn:hover {
+    background: #283593;
+}
+
+.login-page p {
+    margin-top: 18px;
+    font-size: 1rem;
+}
+
+.login-page a {
+    color: #3f51b5;
+    text-decoration: underline;
+    font-weight: 500;
+}
+/* LoginPage.css - Custom checkbox */
+.custom-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 500;
+    gap: 8px;
+    user-select: none;
+    position: relative;
+}
+
+.custom-checkbox input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.custom-checkbox .checkmark {
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border: 2px solid #3f51b5;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    margin-right: 8px;
+    transition: background 0.2s, border 0.2s;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark {
+    background-color: #3f51b5;
+    border-color: #3f51b5;
+}
+
+.custom-checkbox .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + .checkmark:after {
+    display: block;
+}
+
+.custom-checkbox .checkmark:after {
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #fff;
+    border-width: 0 2.5px 2.5px 0;
+    transform: rotate(45deg);
+    content: "";
+    margin-top: 20px;
+    position: absolute;
+}
