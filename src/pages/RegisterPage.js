@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RegisterPage = () => {
     const [fullName, setFullName] = useState('');
@@ -13,21 +14,20 @@ const RegisterPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        // Validate client-side
         if (!fullName || !email || !password || !confirmPassword) {
-            setError('Vui lòng điền đầy đủ thông tin.');
+            setError('Please fill in all fields.');
             setSuccess('');
             return;
         }
 
         if (password !== confirmPassword) {
-            setError('Mật khẩu không khớp!');
+            setError('Passwords do not match!');
             setSuccess('');
             return;
         }
 
         if (!agreeTerms) {
-            setError('Bạn cần đồng ý với điều khoản và điều kiện.');
+            setError('You must agree to the terms and conditions.');
             setSuccess('');
             return;
         }
@@ -36,11 +36,9 @@ const RegisterPage = () => {
         setSuccess('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/register', {
+            const response = await fetch('http://localhost:8080/api/auth/register', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     name: fullName,
                     email,
@@ -50,98 +48,128 @@ const RegisterPage = () => {
             });
 
             const text = await response.text();
-            console.log('Phản hồi từ back-end:', text);
+            console.log('Server response:', text);
 
             if (response.ok) {
-                setSuccess('Đăng ký thành công! Vui lòng đăng nhập.');
+                setSuccess('Registration successful! Please log in.');
                 setError('');
             } else {
-                setError(text || 'Đã xảy ra lỗi khi đăng ký.');
+                setError(text || 'Registration failed.');
                 setSuccess('');
             }
         } catch (err) {
-            console.error('Lỗi kết nối:', err);
-            setError('Không thể kết nối đến máy chủ.');
+            console.error('Connection error:', err);
+            setError('Cannot connect to the server.');
             setSuccess('');
         }
     };
 
     return (
-        <div className="register-page" style={{ maxWidth: 400, margin: '0 auto', padding: 20 }}>
-            <h1>Đăng ký</h1>
-            <form onSubmit={handleRegister}>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
-                {success && <p style={{ color: 'green' }}>{success}</p>}
+        <div style={{
+            minHeight: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: 'linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a18cd1, #84fab0, #8fd3f4)',
+            backgroundSize: '400% 400%',
+            animation: 'waves 15s ease infinite'
+        }}>
+            <style>
+                {`
+                @keyframes waves {
+                    0% { background-position: 0% 50%; }
+                    50% { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                `}
+            </style>
 
-                <div className="form-group">
-                    <label>Họ và tên:</label>
-                    <input
-                        type="text"
-                        className="form-control"
-                        placeholder="Nhập họ và tên"
-                        value={fullName}
-                        onChange={(e) => setFullName(e.target.value)}
-                        required
-                    />
+            <div className="card p-4 shadow-lg border-0" style={{
+                width: '100%',
+                maxWidth: '450px',
+                borderRadius: '20px',
+                background: 'rgba(255, 255, 255, 0.92)',
+                backdropFilter: 'blur(10px)'
+            }}>
+                <div className="text-center mb-4">
+                    <h2 className="fw-bold text-primary">Create an Account</h2>
+                    <p className="text-muted">Join our learning community</p>
                 </div>
 
-                <div className="form-group">
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        className="form-control"
-                        placeholder="Nhập email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
+                {error && <div className="alert alert-danger">{error}</div>}
+                {success && <div className="alert alert-success">{success}</div>}
 
-                <div className="form-group">
-                    <label>Mật khẩu:</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Nhập mật khẩu"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
+                <form onSubmit={handleRegister}>
+                    <div className="mb-3">
+                        <label className="form-label">Full Name:</label>
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder="Enter your full name"
+                            value={fullName}
+                            onChange={(e) => setFullName(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                <div className="form-group">
-                    <label>Nhập lại mật khẩu:</label>
-                    <input
-                        type="password"
-                        className="form-control"
-                        placeholder="Nhập lại mật khẩu"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        required
-                    />
-                </div>
+                    <div className="mb-3">
+                        <label className="form-label">Email:</label>
+                        <input
+                            type="email"
+                            className="form-control"
+                            placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                <div className="form-group" style={{ marginTop: '10px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <div className="mb-3">
+                        <label className="form-label">Password:</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Enter a password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="mb-3">
+                        <label className="form-label">Confirm Password:</label>
+                        <input
+                            type="password"
+                            className="form-control"
+                            placeholder="Re-enter your password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+
+                    <div className="form-check mb-3">
                         <input
                             type="checkbox"
+                            className="form-check-input"
                             id="agreeTerms"
                             checked={agreeTerms}
                             onChange={(e) => setAgreeTerms(e.target.checked)}
-                            style={{ width: '18px', height: '18px', marginRight: '10px' }}
                         />
-                        <label htmlFor="agreeTerms" style={{ marginBottom: 0 }}>
-                            Tôi đồng ý với <a href="/terms" target="_blank" rel="noopener noreferrer">điều khoản và điều kiện</a>.
+                        <label className="form-check-label" htmlFor="agreeTerms">
+                            I agree to the <a href="/terms" target="_blank" rel="noopener noreferrer">terms and conditions</a>.
                         </label>
                     </div>
-                </div>
 
-                <button type="submit" className="edu-btn" style={{ marginTop: 10 }}>Đăng ký</button>
-            </form>
+                    <button type="submit" className="btn btn-primary w-100 fw-bold" style={{ borderRadius: '12px' }}>
+                        Register
+                    </button>
+                </form>
 
-            <p style={{ marginTop: 15 }}>
-                Đã có tài khoản? <Link to="/login">Đăng nhập ngay</Link>
-            </p>
+                <p className="mt-4 text-center text-muted">
+                    Already have an account? <Link to="/login" className="text-decoration-none text-primary">Log in</Link>
+                </p>
+            </div>
         </div>
     );
 };
