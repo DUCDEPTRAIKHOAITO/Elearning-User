@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import Nav from './Nav';
 import HeaderSticky from './HeaderSticky';
 import ResponsiveMenu from './ResponsiveMenu';
@@ -9,6 +9,8 @@ const HeaderTwo = ({ styles, disableSticky, searchDisable, buttonStyle }) => {
     const [searchPopup, setSearchPopup] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [fullName, setFullName] = useState('');
+    const [searchInput, setSearchInput] = useState('');
+    const navigate = useNavigate();
 
     const onCanvasHandler = () => {
         setOffcanvasShow(prevState => !prevState);
@@ -43,6 +45,15 @@ const HeaderTwo = ({ styles, disableSticky, searchDisable, buttonStyle }) => {
     const classes = `header-default ${sticky ? 'sticky' : ''}`;
     const stickyStatus = disableSticky ? '' : ' header-sticky';
 
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchInput.trim()) {
+            navigate(`/search?query=${encodeURIComponent(searchInput.trim())}`);
+            setSearchPopup(false);
+        }
+    };
+
+
     return (
         <>
             <header className={`edu-header ${stickyStatus} ${styles || ''} ${classes || ''}`}>
@@ -66,9 +77,9 @@ const HeaderTwo = ({ styles, disableSticky, searchDisable, buttonStyle }) => {
                             <div className="header-menu-bar">
                                 {!searchDisable &&
                                     <div className="quote-icon quote-search">
-                                        <button className="white-box-icon search-trigger header-search" onClick={onSearchHandler}>
+                                        {/* <button className="white-box-icon search-trigger header-search" onClick={onSearchHandler}>
                                             <i className="ri-search-line"></i>
-                                        </button>
+                                        </button> */}
                                     </div>
                                 }
                                 <div className="quote-icon quote-user d-none d-md-block ml--15 ml_sm--5">
@@ -96,7 +107,7 @@ const HeaderTwo = ({ styles, disableSticky, searchDisable, buttonStyle }) => {
                                                     window.location.reload();
                                                 }}
                                             >
-                                                Đăng xuất
+                                                logout
                                             </button>
                                         </span>
                                     ) : (
@@ -105,6 +116,23 @@ const HeaderTwo = ({ styles, disableSticky, searchDisable, buttonStyle }) => {
                                             Please log in
                                         </Link>
                                     )}
+                                </div>
+                                <div className="quote-icon quote-search">
+                                    <button className="white-box-icon search-trigger header-search" onClick={onSearchHandler}>
+                                        <i className="ri-search-line"></i>
+                                    </button>
+                                     {/* {searchPopup && (
+                                        <form onSubmit={handleSearchSubmit} style={{ position: 'absolute', right: 0, top: '48px', zIndex: 1000, background: '#fff', borderRadius: '8px', boxShadow: '0 2px 8px #ccc', padding: '10px', minWidth: '220px' }}>
+                                            <input
+                                                type="text"
+                                                placeholder="Tìm kiếm khóa học..."
+                                                value={searchInput}
+                                                onChange={e => setSearchInput(e.target.value)}
+                                                autoFocus
+                                                style={{ width: '100%', padding: '6px 10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                                            />
+                                        </form>
+                                    )} */}
                                 </div>
                                 <div className="quote-icon quote-user d-block d-md-none ml--15 ml_sm--5">
                                     <Link to={process.env.PUBLIC_URL + "/login"} className="white-box-icon" href="#">

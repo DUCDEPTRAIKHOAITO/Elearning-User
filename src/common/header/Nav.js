@@ -20,8 +20,8 @@ const Nav = () => {
                 <Link to="#">About</Link>
                 <ul className="submenu">
                     <li><Link to="/about-us-1">About Us 1</Link></li>
-                    <li><Link to="/about-us-2">About Us 2</Link></li>
-                    <li><Link to="/about-us-3">About Us 3</Link></li>
+                    {/* <li><Link to="/about-us-2">About Us 2</Link></li>
+                    <li><Link to="/about-us-3">About Us 3</Link></li> */}
                 </ul>
             </li>
             
@@ -48,37 +48,37 @@ const Nav = () => {
                 <Link to="#">Pages</Link>
                 <ul className="submenu">
                     <li className="has-droupdown">
-                        <Link to="#">Event</Link>
-                        <ul className="submenu">
+                        {/* <Link to="#">Event</Link> */}
+                        {/* <ul className="submenu">
                             <li><Link to="/event-grid">Event Grid</Link></li>
                             <li><Link to="/event-list">Event List</Link></li>
                             <li><Link to="/event-load-more">Event( Load More )</Link></li>
                             <li><Link to="/event-carousel">Event Carousel</Link></li>
                             <li><Link to="/event-details/1">Event Details</Link></li>
-                        </ul>
+                        </ul> */}
                     </li>
                     <li className="has-droupdown">
-                        <Link to="#">Gallery</Link>
+                        {/* <Link to="#">Gallery</Link>
                         <ul className="submenu">
                             <li><Link to="/gallery-grid">Gallery Grid</Link></li>
                             <li><Link to="/gallery-masonry">Gallery Masonry</Link></li>
                             <li><Link to="/gallery-load-more">Gallery( Load More )</Link></li>
-                        </ul>
+                        </ul> */}
                     </li>
                     <li className="has-droupdown">
-                        <Link to="#">Instructor</Link>
+                        {/* <Link to="#">Instructor</Link>
                         <ul className="submenu">
                             <li><Link to="/instructor-one">Instructor 1</Link></li>
                             <li><Link to="/instructor-two">Instructor 2</Link></li>
                             <li><Link to="/instructor-three">Instructor 3</Link></li>
                             <li><Link to="/instructor-details/james-carlson">Instructor Profile</Link></li>
-                        </ul>
+                        </ul> */}
                     </li>
-                    <li><Link to="/faq">FAQ</Link></li>
+                    {/* <li><Link to="/faq">FAQ</Link></li>
                     <li><Link to="/pricing">Pricing</Link></li>
                     <li><Link to="/privacy-policy">Privacy Policy</Link></li>
                     <li><Link to="/purchase-guide">Purchase Guide</Link></li>
-                    <li><Link to="/testimonial">Testimonial</Link></li>
+                    <li><Link to="/testimonial">Testimonial</Link></li> */}
                     <li><Link to="/coming-soon">Coming Soon</Link></li>
                     <li><Link to="/login">Login/Register</Link></li>
                     {/* <li><Link to="/404">404</Link></li> */}
@@ -89,7 +89,7 @@ const Nav = () => {
                 <ul className="submenu">
                     <li><Link to="/blog-grid-1">Blog Grid 1</Link></li>
                     <li><Link to="/blog-grid-2">Blog Grid 2</Link></li>
-                    <li><Link to="/blog-grid-3">Blog Grid 3</Link></li>
+                    {/* <li><Link to="/blog-grid-3">Blog Grid 3</Link></li> */}
                     {/* <li><Link to="/blog-carousel">Blog Carousel</Link></li>
                     <li><Link to="/blog-standard">Blog Standard</Link></li>
                     <li><Link to="/blog-grid-right-sidebar">Blog( Right Sidebar )</Link></li>
