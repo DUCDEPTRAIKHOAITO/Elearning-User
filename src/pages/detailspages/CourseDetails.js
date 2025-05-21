@@ -100,7 +100,7 @@ const CourseDetails = () => {
                         <div className="row g-5">
                             <div className="col-lg-12">
                                 <div className="main-image thumbnail">
-                                    <img className="radius-small" src={`${process.env.PUBLIC_URL}/images/course/course-details/${courseItem.image}`} alt="Course Thumb" />
+                                    <img className="radius-small" src={`${process.env.PUBLIC_URL}https://i.ytimg.com/vi/H2gquNz1bvs/hqdefault.jpg?sqp=-oaymwEnCPYBEIoBSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLAC8vT_r9JyG5Lkq8EKqcjkTBCztg${courseItem.image}`} alt="Course Thumb" />
                                 </div>
                             </div>
                         </div>
@@ -131,7 +131,7 @@ const CourseDetails = () => {
                                     </div>
 
                                     <h3 className="title">{ courseItem.title }</h3>
-                                    <ul className="edu-course-tab nav nav-tabs" role="tablist">
+                                    <ul className="edu-course-tab nav nav-tabs justify-content-center" role="tablist">
                                         <li className="nav-item">
                                             <button
                                                 className={contentTab === 'overview' ? 'nav-link active' : 'nav-link'}
@@ -152,7 +152,7 @@ const CourseDetails = () => {
                                                 Curriculum
                                             </button>
                                         </li>
-                                        <li className="nav-item">
+                                        {/* <li className="nav-item">
                                             <button
                                                 className={contentTab === 'instructor' ? 'nav-link active' : 'nav-link'}
                                                 type="button"
@@ -161,8 +161,8 @@ const CourseDetails = () => {
                                             >
                                                 Instructor
                                             </button>
-                                        </li>
-                                        <li className="nav-item">
+                                        </li> */}
+                                        {/* <li className="nav-item">
                                             <button
                                                 className={contentTab === 'reviews' ? 'nav-link active' : 'nav-link'}
                                                 type="button"
@@ -171,7 +171,7 @@ const CourseDetails = () => {
                                             >
                                                 Reviews
                                             </button>
-                                        </li>
+                                        </li> */}
                                     </ul>
 
                                     <div className="tab-content">
@@ -195,7 +195,7 @@ const CourseDetails = () => {
                                                     <div className="course-author-wrapper">
                                                         <div className="thumbnail">
                                                             <Link to={process.env.PUBLIC_URL + `/instructor-details/${slugify( courseItem.instructor ) }`}>
-                                                                <img src={`${process.env.PUBLIC_URL}/images/instructor/course-details/${instructor.image}`} alt="Author Thumb" />
+                                                                <img src={`${process.env.PUBLIC_URL}https://th.bing.com/th/id/OIP.12F2Pfv8gq3TMyOKetUpbwHaEc?w=219&h=180&c=7&r=0&o=7&cb=iwp2&dpr=1.6&pid=1.7&rm=3${instructor.image}`} alt="Author Thumb" />
                                                             </Link>
                                                         </div>
                                                         <div className="author-content">
@@ -204,19 +204,19 @@ const CourseDetails = () => {
                                                             </h6>
                                                             <span className="subtitle">{instructor.designation}</span>
                                                             <p>{ instructorExcerpt }</p>
-                                                            <ul className="social-share border-style">
+                                                            {/* <ul className="social-share border-style">
                                                                 <li><a href={instructor.facebookUrl}><i className="icon-Fb"></i></a></li>
                                                                 <li><a href={instructor.linkedInUrl}><i className="icon-linkedin"></i></a></li>
                                                                 <li><a href={instructor.pinterest}><i className="icon-Pinterest"></i></a></li>
                                                                 <li><a href={instructor.twitterUrl}><i className="icon-Twitter"></i></a></li>
-                                                            </ul>
+                                                            </ul> */}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         }
 
-                                        { contentTab === 'reviews' && 
+                                        {/* { contentTab === 'reviews' && 
                                             <div className={`tab-pane fade show ${contentTab === 'reviews' ? 'active' : '' } `}>
                                                 <div className="course-tab-content">
                                                     <div className="row row--30">
@@ -314,7 +314,7 @@ const CourseDetails = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                        }
+                                        } */}
                                     </div>
                                 </div>
                             </div>

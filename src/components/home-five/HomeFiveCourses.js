@@ -9,7 +9,7 @@ import { ThreeColumnCarousel } from '../../utils/script';
 const HomeFiveCourses = () => {
     return (
         <div className="eduvibe-home-five-course slider-dots edu-course-area edu-section-gap bg-image">
-            <div className="container eduvibe-animated-shape">
+            {/* <div className="container eduvibe-animated-shape">
                 <div className="row g-5">
                     <div className="col-lg-6">
                         <SectionTitle
@@ -56,7 +56,7 @@ const HomeFiveCourses = () => {
                         <img src="/images/shapes/shape-03-07.png" alt="Shape" />
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

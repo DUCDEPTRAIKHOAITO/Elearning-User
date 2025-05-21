@@ -28,11 +28,11 @@ const RelatedCourses = ( { courseID } ) => {
         <>
             { commonCourses && commonCourses.length > 0 && 
                 <div className="edu-course-wrapper pt--65">
-                    <div className="section-title text-start mb--20">
+                    {/* <div className="section-title text-start mb--20">
                         <span className="pre-title">Related Courses</span>
                         <h3 className="title">Courses You May Like</h3>
-                    </div>
-                    <Slider 
+                    </div> */}
+                    {/* <Slider 
                         className="mt--40 edu-slick-button slick-activation-wrapper eduvibe-course-one-carousel"
                         { ...ThreeColumnCarousel2 }
                     >
@@ -43,7 +43,7 @@ const RelatedCourses = ( { courseID } ) => {
                                 </div>
                             ) )
                         }
-                    </Slider>
+                    </Slider> */}
                 </div>
             }
         </>

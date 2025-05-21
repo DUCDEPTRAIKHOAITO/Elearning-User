@@ -8,13 +8,13 @@ const HomeFiveCategories = () => {
             <div className="container eduvibe-animated-shape">
                 <div className="row g-5">
                     <div className="col-lg-12">
-                        <SectionTitle
+                        {/* <SectionTitle
                             slogan="Top Categories"
                             title="Popular Categories"
-                        />
+                        /> */}
                     </div>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                     <CategoryFour />
                 </div>
 
@@ -28,7 +28,7 @@ const HomeFiveCategories = () => {
                     <div className="shape-image shape-image-3">
                         <img src="/images/shapes/shape-04-06.png" alt="Shape" />
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );
