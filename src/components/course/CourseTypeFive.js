@@ -30,16 +30,13 @@ const CourseTwo = ({ data, classes }) => {
                     </div> */}
                 </div>
                 
-                 <div className="content">
-                    
+                <div className="content">
                     {/* <div className="price-list price-style-03">
                         <div className="price current-price">{price === 0 ? 'Free' : `$${price}`}</div>
                         {oldPrice && <div className="price old-price">${oldPrice}</div>}
                     </div> */}
-                   <h6 className="title">{data.name}</h6>
-                   <Link to={`/course-details/${data.id}`}>
-                            {data.name}
-                        </Link>
+                    <h2 className="title" style={{ fontWeight: 'bold', fontSize: '2rem', marginBottom: 8 }}>{data.name}</h2>
+                    <p>{data.description}</p>
                     {/* <ul className="edu-meta meta-01">
                         <li><i className="icon-time-line"></i>{data.duration}</li>
                         <li><i className="icon-group-line"></i>{data.student} Students</li>

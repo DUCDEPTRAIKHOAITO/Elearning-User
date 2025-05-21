@@ -45,7 +45,7 @@ const BannerFive = (props) => {
                     </div>
                 </div>
 
-                <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
+                {/* <div className="shape-dot-wrapper shape-wrapper d-xl-block d-none">
                     <div className="shape-image shape-image-1">
                         <img src="/images/shapes/shape-07.png" alt="Shape" />
                     </div>
@@ -64,7 +64,7 @@ const BannerFive = (props) => {
                     <div className="shape-image shape-image-6">
                         <img src="/images/shapes/shape-01-04.png" alt="Shape" />
                     </div>
-                </div>
+                </div> */}
             </div>
             <FsLightbox toggler={toggler} sources={videoLink} />
         </>

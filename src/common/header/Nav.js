@@ -30,9 +30,9 @@ const Nav = () => {
                 <ul className="submenu">
                     {/* <li><Link to="/course-1">Course 1</Link></li>
                     <li><Link to="/course-2">Course 2</Link></li> */}
-                    <li><Link to="/course-3">Course 1</Link></li>
-                    <li><Link to="/course-4">Course 2</Link></li>
-                    <li><Link to="/course-5">Course 3</Link></li>
+                    {/* <li><Link to="/course-3">Course 1</Link></li>
+                    <li><Link to="/course-4">Course 2</Link></li> */}
+                    <li><Link to="/course-5">Course </Link></li>
                      {/* <li><Link to="/course-details/2">Course Details 1</Link></li>
                     <li><Link to="/course-details-two/1">Course Details 2</Link></li>
                     <li><Link to="/course-filter-1">Course Filter 1</Link></li>
