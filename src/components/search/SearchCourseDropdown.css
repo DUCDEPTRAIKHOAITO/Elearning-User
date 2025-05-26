@@ -1,0 +1,64 @@
+.search-course-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 9999;
+
+    background: #f7f5f5;
+    border: 1px solid #f3e5e5;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    min-width: 420px;
+    max-width: 600px;
+}
+
+.dropdown-header {
+    font-size: 22px;
+    font-weight: 900;
+    color: #000;
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+}
+
+.dropdown-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #faf8f8;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #222;
+    width: 100%;
+}
+
+.dropdown-img {
+    width: 100px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eaeaea;
+}
+
+.dropdown-title {
+    font-size: 16px;
+    font-weight: 600;
+    flex: 1;
+    word-break: break-word;
+}

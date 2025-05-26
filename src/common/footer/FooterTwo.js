@@ -5,7 +5,7 @@ import ScrollTopButton from './ScrollTopButton';
 const FooterTwo = () => {
     return (
         <>
-            <footer className="eduvibe-footer-two edu-footer-with-cta">
+            {/* <footer className="eduvibe-footer-two edu-footer-with-cta">
                 <div className="edu-cta-area cta-with-overlay">
                     <div className="container">
                         <div className="row g-5">
@@ -163,7 +163,7 @@ const FooterTwo = () => {
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer> */}
             <ScrollTopButton />
         </>
     )
