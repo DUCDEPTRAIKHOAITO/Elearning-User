@@ -60,6 +60,7 @@ import InstructorDetails from './pages/detailspages/InstructorDetails';
 import Error from './pages/innerpages/Error';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import SearchResultPage from './pages/SearchResultPage';
 // Import Css Here
 import './assets/scss/style.scss';
 import Login from './pages/innerpages/Login';
@@ -130,7 +131,12 @@ function App() {
                     <Route exact path={`${process.env.PUBLIC_URL + '/category/:slug'}`} element={<CategoryArchive />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/tag/:slug'}`} element={<TagArchive />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/author/:slug'}`} element={<AuthorArchive />} />
+                    <Route path="/search" element={<SearchResultPage />} />
+                    {/* <Route path="/search" element={<SearchResultsPage />} /> */}
+
                     <Route path='*' element={<Error />} />
+                    
+      
                 </Routes>
             </ScrollToTop>
         </Router>
