@@ -25,7 +25,16 @@ const CourseDetails = () => {
 
     fetch(`http://localhost:8080/api/lessons/course/${id}`)
       .then(res => res.json())
-      .then(data => setLessons(Array.isArray(data) ? data : []))
+      .then(data => {
+        const sortedLessons = Array.isArray(data)
+          ? [...data].sort((a, b) => {
+              const numA = parseInt(a.name?.match(/\d+/)?.[0]) || 0;
+              const numB = parseInt(b.name?.match(/\d+/)?.[0]) || 0;
+              return numA - numB;
+            })
+          : [];
+        setLessons(sortedLessons);
+      })
       .catch(err => {
         console.error('Error fetching lessons:', err);
         setLessons([]);
@@ -65,45 +74,43 @@ const CourseDetails = () => {
     <>
       <HeaderTwo />
       <BreadcrumbOne
-        title={course?.title || course?.name || 'Chi tiết khóa học'}
+        title={course?.title || course?.name || 'Course Details'}
         rootUrl="/"
         parentUrl="Home"
         currentUrl="Course Details"
       />
 
-      {/* Toast message - disappears after 3s */}
       {showToast && (
         <div
           className="toast show position-fixed top-0 end-0 m-4 bg-success text-white shadow"
           role="alert"
           style={{ zIndex: 9999 }}
         >
-          <div className="toast-body">🎉 Bạn đã đăng ký khóa học thành công!</div>
+          <div className="toast-body">🎉 You have successfully registered for the course!</div>
         </div>
       )}
 
       <div className="edu-course-details-area edu-section-gap bg-color-white py-5">
         <div className="container">
           <div className="row g-5">
-            {/* Main Content */}
             <div className="col-xl-8 col-lg-7">
               <div className="course-details-content">
                 <h1 className="fw-bold display-4 mb-3 text-dark text-uppercase">
-                  {course?.title || course?.name || 'Tên khóa học'}
+                  {course?.title || course?.name || 'Course Title'}
                 </h1>
 
                 <p className="mb-4 text-muted fs-4">{course?.description}</p>
 
-                <h4 className="mb-3 fs-3">📘 Nội dung khóa học</h4>
+                <h4 className="mb-3 fs-3">📘 Course Content</h4>
 
                 {!registered ? (
                   <div className="alert alert-warning fs-5">
-                    🔒 Bạn cần <strong>đăng ký khóa học</strong> để xem nội dung bài học.
+                    🔒 Please <strong>register for the course</strong> to view lesson content.
                   </div>
                 ) : (
                   <>
                     <p className="text-muted fs-5">
-                      Tổng cộng <strong>{totalLessons}</strong> bài học
+                      Total of <strong>{totalLessons}</strong> lessons
                     </p>
                     <div className="accordion" id="lessonAccordion">
                       {lessons.map((lesson, idx) => {
@@ -131,7 +138,7 @@ const CourseDetails = () => {
                                 aria-expanded={isOpen ? 'true' : 'false'}
                                 aria-controls={`collapse${lesson.id}`}
                               >
-                                {lesson.name || 'Bài học không tên'}
+                                {lesson.name || 'Untitled Lesson'}
                               </button>
                             </h2>
                             <div
@@ -140,13 +147,13 @@ const CourseDetails = () => {
                               aria-labelledby={`heading${lesson.id}`}
                             >
                               <div className="accordion-body fs-6">
-                                <p><strong>Tên bài học:</strong> {lesson.name}</p>
-                                <p><strong>Mô tả:</strong> {lesson.description || 'Chưa có mô tả.'}</p>
-                                <p><strong>Ngày học:</strong> {lesson.lessonDate ? new Date(lesson.lessonDate).toLocaleDateString('en-US', {
-                                    year: 'numeric',
-                                    month: 'long',
-                                    day: 'numeric'
-                                  }) : 'No date available'}</p>
+                                <p><strong>Lesson Name:</strong> {lesson.name}</p>
+                                <p><strong>Description:</strong> {lesson.description || 'No description available.'}</p>
+                                <p><strong>Date:</strong> {lesson.lessonDate ? new Date(lesson.lessonDate).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric'
+                                }) : 'No date available'}</p>
 
                                 {lesson.referenceLink && (
                                   <div className="ratio ratio-16x9 mt-3">
@@ -168,7 +175,6 @@ const CourseDetails = () => {
               </div>
             </div>
 
-            {/* Sidebar */}
             <div className="col-xl-4 col-lg-5">
               <div className="card shadow-sm border-0">
                 {course?.introVideo ? (
@@ -188,28 +194,24 @@ const CourseDetails = () => {
                 )}
                 <div className="card-body text-center">
                   <ul className="list-group list-group-flush text-start fs-5 mb-3">
-                    <li className="list-group-item"><strong>🧠 Trình độ:</strong> {course?.level || 'Cơ bản'}</li>
-                    <li className="list-group-item"><strong>🎓 Bài học:</strong> {totalLessons} bài</li>
-                    <li className="list-group-item"><strong>⏱️ Thời lượng:</strong> {course?.duration || 'Đang cập nhật'}</li>
-                    <li className="list-group-item">📅 Học mọi lúc mọi nơi</li>
+                    <li className="list-group-item"><strong>🧠 Level:</strong> {course?.level || 'Beginner'}</li>
+                    <li className="list-group-item"><strong>🎓 Lessons:</strong> {totalLessons}</li>
+                    <li className="list-group-item"><strong>⏱️ Duration:</strong> {course?.duration || 'Updating'}</li>
+                    <li className="list-group-item">📅 Learn anytime, anywhere</li>
                   </ul>
 
-                  {/* Miễn phí chỉ hiển thị khi chưa đăng ký */}
                   {!registered && (
-                    <h4 className="text-danger fw-bold mb-3 fs-3">🎁 Miễn phí</h4>
+                    <>
+                      <h4 className="text-danger fw-bold mb-3 fs-3">🎁 Free</h4>
+                      <button className="btn btn-primary w-100 fs-5" onClick={handleRegister}>
+                        REGISTER NOW
+                      </button>
+                    </>
                   )}
 
-                  {/* Nút đăng ký hiển thị khi chưa đăng ký */}
-                  {!registered && (
-                    <button className="btn btn-primary w-100 fs-5" onClick={handleRegister}>
-                      ĐĂNG KÝ HỌC
-                    </button>
-                  )}
-
-                  {/* Alert thành công (tự ẩn sau 3s) */}
                   {showAlert && (
                     <div className="alert alert-success mt-3 fs-6">
-                      ✅ Bạn đã đăng ký thành công!
+                      ✅ You have successfully registered!
                     </div>
                   )}
                 </div>

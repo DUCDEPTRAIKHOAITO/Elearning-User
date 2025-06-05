@@ -7,7 +7,7 @@ const SearchCourseDropdown = ({ keyword, courses }) => {
 
     return (
         <div className="search-course-dropdown">
-            <div className="dropdown-header">Kết quả cho "{keyword}"</div>
+            <div className="dropdown-header">Results for "{keyword}"</div>
             <ul className="dropdown-list">
                 {courses.slice(0, 5).map(course => (
                     <li key={course.id} className="dropdown-item">

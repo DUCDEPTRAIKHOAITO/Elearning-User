@@ -62,7 +62,7 @@ const HeaderTwo = () => {
             >
                 <div className="row align-items-center w-100">
 
-                    {/* Logo (đã dùng link URL) */}
+                    {/* Logo (using external URL) */}
                     <div className="col-lg-2 col-md-6 col-6">
                         <div className="logo">
                             <Link to="/">
@@ -75,17 +75,17 @@ const HeaderTwo = () => {
                         </div>
                     </div>
 
-                    {/* Menu */}
+                    {/* Navigation Menu */}
                     <div className="col-lg-5 d-none d-xl-block">
                         <nav className="mainmenu-nav d-none d-lg-block">
                             <Nav />
                         </nav>
                     </div>
 
-                    {/* Search + User */}
+                    {/* Search and User Section */}
                     <div className="col-lg-5 col-md-6 col-6 d-flex align-items-center justify-content-end gap-4">
 
-                        {/* Tìm kiếm */}
+                        {/* Search Field */}
                         <form
                             onSubmit={handleSearchSubmit}
                             style={{
@@ -97,7 +97,7 @@ const HeaderTwo = () => {
                         >
                             <input
                                 type="text"
-                                placeholder="Tìm kiếm khóa học..."
+                                placeholder="Search courses..."
                                 value={searchInput}
                                 onChange={(e) => setSearchInput(e.target.value)}
                                 style={{
@@ -112,7 +112,7 @@ const HeaderTwo = () => {
                             <SearchCourseDropdown keyword={searchInput} courses={searchResults} />
                         </form>
 
-                        {/* Hello/Logout or Đăng nhập/Đăng ký */}
+                        {/* User Info / Auth Links */}
                         <div className="d-flex align-items-center gap-2">
                             {isLoggedIn ? (
                                 <>
@@ -156,7 +156,7 @@ const HeaderTwo = () => {
                                             border: 'none',
                                         }}
                                     >
-                                        Đăng nhập
+                                        Login
                                     </Link>
                                     <Link
                                         to="/register"
@@ -171,7 +171,7 @@ const HeaderTwo = () => {
                                             border: 'none',
                                         }}
                                     >
-                                        Đăng ký
+                                        Register
                                     </Link>
                                 </>
                             )}

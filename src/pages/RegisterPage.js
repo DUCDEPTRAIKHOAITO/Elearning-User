@@ -3,10 +3,8 @@ import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const RegisterPage = () => {
-    const [fullName, setFullName] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
     const [agreeTerms, setAgreeTerms] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -14,20 +12,14 @@ const RegisterPage = () => {
     const handleRegister = async (e) => {
         e.preventDefault();
 
-        if (!fullName || !email || !password || !confirmPassword) {
-            setError('Please fill in all fields.');
-            setSuccess('');
-            return;
-        }
-
-        if (password !== confirmPassword) {
-            setError('Passwords do not match!');
+        if (!name.trim() || !email.trim()) {
+            setError('⚠️ Please enter your full name and email.');
             setSuccess('');
             return;
         }
 
         if (!agreeTerms) {
-            setError('You must agree to the terms and conditions.');
+            setError('⚠️ You must agree to the terms of service.');
             setSuccess('');
             return;
         }
@@ -36,31 +28,28 @@ const RegisterPage = () => {
         setSuccess('');
 
         try {
-            const response = await fetch('http://localhost:8080/api/auth/register', {
+            const response = await fetch('http://localhost:8080/api/user/create_id', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: fullName,
-                    email,
-                    password,
-                    role: 'user',
-                }),
+                body: JSON.stringify({ name, email })
             });
 
             const text = await response.text();
             console.log('Server response:', text);
 
             if (response.ok) {
-                setSuccess('Registration successful! Please log in.');
-                setError('');
+                setSuccess('🎉 Registration successful! Please check your email for the password.');
+                setName('');
+                setEmail('');
+                setAgreeTerms(false);
+            } else if (response.status === 500 && text.includes("Duplicate entry")) {
+                setError('❌ Email is already in use. Please choose a different one.');
             } else {
-                setError(text || 'Registration failed.');
-                setSuccess('');
+                setError('❌ Registration failed: ' + text);
             }
         } catch (err) {
             console.error('Connection error:', err);
-            setError('Cannot connect to the server.');
-            setSuccess('');
+            setError('⚠️ Could not connect to the server.');
         }
     };
 
@@ -92,8 +81,8 @@ const RegisterPage = () => {
                 backdropFilter: 'blur(10px)'
             }}>
                 <div className="text-center mb-4">
-                    <h2 className="fw-bold text-primary">Create an Account</h2>
-                    <p className="text-muted">Join our learning community</p>
+                    <h2 className="fw-bold text-primary">Create Account</h2>
+                    <p className="text-muted">Join the learning community today</p>
                 </div>
 
                 {error && <div className="alert alert-danger">{error}</div>}
@@ -106,8 +95,8 @@ const RegisterPage = () => {
                             type="text"
                             className="form-control"
                             placeholder="Enter your full name"
-                            value={fullName}
-                            onChange={(e) => setFullName(e.target.value)}
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
                             required
                         />
                     </div>
@@ -124,30 +113,6 @@ const RegisterPage = () => {
                         />
                     </div>
 
-                    <div className="mb-3">
-                        <label className="form-label">Password:</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Enter a password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-
-                    <div className="mb-3">
-                        <label className="form-label">Confirm Password:</label>
-                        <input
-                            type="password"
-                            className="form-control"
-                            placeholder="Re-enter your password"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            required
-                        />
-                    </div>
-
                     <div className="form-check mb-3">
                         <input
                             type="checkbox"
@@ -157,12 +122,12 @@ const RegisterPage = () => {
                             onChange={(e) => setAgreeTerms(e.target.checked)}
                         />
                         <label className="form-check-label" htmlFor="agreeTerms">
-                            I agree to the <a href="/terms" target="_blank" rel="noopener noreferrer">terms and conditions</a>.
+                            I agree to the <a href="/terms" target="_blank" rel="noopener noreferrer">terms of service</a>.
                         </label>
                     </div>
 
                     <button type="submit" className="btn btn-primary w-100 fw-bold" style={{ borderRadius: '12px' }}>
-                        Register
+                        {success ? '✅ Sent!' : 'Register'}
                     </button>
                 </form>
 

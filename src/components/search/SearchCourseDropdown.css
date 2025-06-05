@@ -4,7 +4,7 @@
     left: 0;
     z-index: 9999;
 
-    background: #f7f5f5;
+    background: #f7f4f4;
     border: 1px solid #f3e5e5;
     border-radius: 16px;
     padding: 24px;
@@ -17,7 +17,7 @@
 .dropdown-header {
     font-size: 22px;
     font-weight: 900;
-    color: #000;
+    color: #000; /* Màu đen cho tiêu đề */
     margin-bottom: 20px;
     letter-spacing: 0.3px;
 }
@@ -44,7 +44,7 @@
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #222;
+    color: #000 !important; /* Ghi đè để đảm bảo màu đen cho toàn bộ link */
     width: 100%;
 }
 
@@ -59,6 +59,7 @@
 .dropdown-title {
     font-size: 16px;
     font-weight: 600;
+    color: #000; /* Màu đen cho tiêu đề của item */
     flex: 1;
     word-break: break-word;
 }

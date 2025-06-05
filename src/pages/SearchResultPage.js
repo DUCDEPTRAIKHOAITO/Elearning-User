@@ -24,18 +24,20 @@ const SearchResultPage = () => {
 
     return (
         <div className="container py-5">
-            <h2>Kết quả tìm kiếm cho: <em>{query}</em></h2>
-            {loading ? <p>Đang tải...</p> :
-                results.length > 0 ? (
-                    <div className="row">
-                        {results.map(course => (
-                            <div className="col-md-6 col-lg-4 mb-4" key={course.id}>
-                                <CourseTypeFive data={course} />
-                            </div>
-                        ))}
-                    </div>
-                ) : <p>Không tìm thấy khóa học nào.</p>
-            }
+            <h2>Search results for: <em>{query}</em></h2>
+            {loading ? (
+                <p>Loading...</p>
+            ) : results.length > 0 ? (
+                <div className="row">
+                    {results.map(course => (
+                        <div className="col-md-6 col-lg-4 mb-4" key={course.id}>
+                            <CourseTypeFive data={course} />
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <p>No courses found.</p>
+            )}
         </div>
     );
 };

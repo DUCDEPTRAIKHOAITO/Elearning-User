@@ -27,7 +27,7 @@ const AboutEight = () => {
                         <div className="inner mt_md--40 mt_sm--20">
                             <SectionTitle
                                 slogan="About Us"
-                                title="Building a Community of Lifelong Learners"
+                                title="Empowering Learners Through Smart Education"
                             />
 
                             <ScrollAnimation
@@ -36,36 +36,35 @@ const AboutEight = () => {
                                 animateOnce={true}
                             >
                                 <p className="description line-before mt--40 mb--40">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                                    Suspendisse varius enim in eros elementum tristique. Duis cursus,
-                                    mi quis viverra ornare, eros dolor interdum nulla, ut commodo diam
-                                    libero vitae erat. Aenean faucibus nibh et justo cursus id rutrum
-                                    lorem imperdiet.
+                                    Our mission is to make high-quality learning accessible for everyone. With personalized
+                                    learning paths, expert instructors, and a supportive community, we empower learners to reach
+                                    their full potential — anytime, anywhere. Join us to unlock knowledge, skills, and confidence
+                                    for a better future.
                                 </p>
                             </ScrollAnimation>
 
                             <div className="feature-list-wrapper">
                                 <ScrollAnimation animateIn="fadeInUp" animateOut="fadeInOut" className="feature-list" animateOnce={true}>
-                                    <i className="icon-checkbox-circle-fill"></i>Flexible learning programs
+                                    <i className="icon-checkbox-circle-fill"></i> Personalized learning experiences
                                 </ScrollAnimation>
                                 <ScrollAnimation animateIn="fadeInUp" animateOut="fadeInOut" className="feature-list" animateOnce={true}>
-                                    <i className="icon-checkbox-circle-fill"></i>Friendly and supportive environment
+                                    <i className="icon-checkbox-circle-fill"></i> Supportive and inclusive learning community
                                 </ScrollAnimation>
                                 <ScrollAnimation animateIn="fadeInUp" animateOut="fadeInOut" className="feature-list" animateOnce={true}>
-                                    <i className="icon-checkbox-circle-fill"></i>Learn from recognized experts
+                                    <i className="icon-checkbox-circle-fill"></i> Trusted instructors and real-world projects
                                 </ScrollAnimation>
                                 <ScrollAnimation animateIn="fadeInUp" animateOut="fadeInOut" className="feature-list" animateOnce={true}>
-                                    <i className="icon-checkbox-circle-fill"></i>Boost your knowledge and skills
+                                    <i className="icon-checkbox-circle-fill"></i> Unlock your future with practical skills
                                 </ScrollAnimation>
                             </div>
 
                             <div className="read-more-btn mt--75 mt_lg--30 mt_md--40 mt_sm--40">
                                 <ScrollAnimation animateIn="fadeInUp" animateOut="fadeInOut" animateOnce={true}>
-                                    <Link className="edu-btn" to="/about-us-1">
-                                        Learn More<i className="icon-arrow-right-line-right"></i>
-                                    </Link>
+                                    {/* <Link className="edu-btn" to="/about-us-1">
+                                        Explore More <i className="icon-arrow-right-line-right"></i>
+                                    </Link> */}
                                     <a className="info-btn" href="tel:+84356528378">
-                                        <i className="icon-call"></i> +84 356 528 378
+                                        <i className="icon-call"></i> + 1 (237) 382-2839
                                     </a>
                                 </ScrollAnimation>
                             </div>

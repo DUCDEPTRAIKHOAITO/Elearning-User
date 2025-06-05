@@ -41,16 +41,17 @@ const LoginPage = () => {
                     sessionStorage.setItem('userEmail', email);
                 }
 
-                setSuccess('Login successful!');
+                setSuccess('🎉 Login successful!');
                 setError('');
                 navigate('/');
             } else {
-                setError(data || 'Login failed.');
+                const message = typeof data === 'string' ? data : data.message || 'Incorrect email or password.';
+                setError(`❌ ${message}`);
                 setSuccess('');
             }
         } catch (err) {
             console.error('Connection error:', err);
-            setError('Unable to connect to the server.');
+            setError('⚠️ Unable to connect to the server. Please try again later.');
             setSuccess('');
         }
     };
@@ -77,10 +78,10 @@ const LoginPage = () => {
 
             <div className="card p-4 shadow-lg border-0" style={{
                 width: '100%',
-                maxWidth: '350px',
+                maxWidth: '380px',
                 borderRadius: '40px',
-                background: 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(100px)'
+                background: 'rgba(255, 255, 255, 0.92)',
+                backdropFilter: 'blur(20px)'
             }}>
                 <div className="text-center mb-4">
                     <h2 className="fw-bold text-primary">Login</h2>
@@ -96,23 +97,27 @@ const LoginPage = () => {
                         <input
                             type="email"
                             className="form-control"
+                            placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             style={{ borderRadius: '100px' }}
                         />
                     </div>
+
                     <div className="mb-3">
                         <label className="form-label">Password:</label>
                         <input
                             type="password"
                             className="form-control"
+                            placeholder="Enter your password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             style={{ borderRadius: '100px' }}
                         />
                     </div>
+
                     <div className="form-check mb-3">
                         <input
                             type="checkbox"
@@ -125,6 +130,7 @@ const LoginPage = () => {
                             Remember me
                         </label>
                     </div>
+
                     <button
                         type="submit"
                         className="btn btn-primary w-100 fw-bold"
@@ -135,7 +141,7 @@ const LoginPage = () => {
                 </form>
 
                 <p className="mt-4 mb-0 text-center text-muted">
-                    Don't have an account?{' '}
+                    Don’t have an account?{' '}
                     <Link to="/register" className="text-decoration-none text-primary fw-semibold">
                         Register now
                     </Link>
