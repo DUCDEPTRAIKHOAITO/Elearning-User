@@ -59,15 +59,42 @@ const CourseDetails = () => {
     return imgPath.startsWith('http') ? imgPath : `${IMAGE_BASE_URL}${imgPath}`;
   };
 
+  // Sửa lại lấy learnerId từ localStorage (không lấy id từ useParams)
   const handleRegister = () => {
-    setRegistered(true);
-    setShowToast(true);
-    setShowAlert(true);
+    const learnerId = localStorage.getItem('learnerId'); // Lưu ý: phải lưu đúng id của learner, không phải userId
+    if (!learnerId) {
+      alert('Bạn cần đăng nhập tài khoản học viên trước khi đăng ký!');
+      return;
+    }
 
-    setTimeout(() => {
-      setShowToast(false);
-      setShowAlert(false);
-    }, 3000);
+    fetch('http://localhost:8080/api/enrollments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        learnerId: learnerId, // Đúng id của learner
+        courseId: id,         // id của khóa học hiện tại
+      }),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to enroll');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setRegistered(true);
+        setShowToast(true);
+        setShowAlert(true);
+        setTimeout(() => {
+          setShowToast(false);
+          setShowAlert(false);
+        }, 3000);
+      })
+      .catch(err => {
+        console.error('Error enrolling in course:', err);
+      });
   };
 
   return (
