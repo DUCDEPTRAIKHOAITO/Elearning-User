@@ -25,13 +25,14 @@ function Users() {
 
     const getAllUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/users');
+            const response = await axios.get('http://localhost:3000/api/users');
             if (response) {
                 setUsersList(response.data);
             }
         }
         catch (e) {
             console.log(e)
+             console.error('Lỗi khi gọi API:', e);
         }
     }
 

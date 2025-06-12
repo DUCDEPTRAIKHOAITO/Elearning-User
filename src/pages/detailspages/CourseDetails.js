@@ -1,336 +1,230 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import { Accordion } from 'react-bootstrap';
-import { useAccordionButton } from 'react-bootstrap/AccordionButton';
-import AccordionContext from 'react-bootstrap/AccordionContext';
-import { slugify } from '../../utils';
-import SEO from '../../common/SEO';
-import Layout from '../../common/Layout';
+import HeaderTwo from '../../common/header/HeaderTwo';
+import Footer from '../../common/footer/FooterTwo';
 import BreadcrumbOne from '../../common/breadcrumb/BreadcrumbOne';
-import CourseInfo from '../../components/course/CourseInfo';
-import RelatedCourses from '../../components/course/RelatedCourses';
-import CourseData from '../../data/course/CourseData.json';
-import InstructorData from '../../data/instructor/InstructorData.json';
-import CurriculumTabContent from '../../data/course/CurriculumTabContent.json';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const CustomToggle = ({ children, eventKey }) => {
-    const { activeEventKey } = useContext(AccordionContext);
-    const decoratedOnClick = useAccordionButton( eventKey );
-    const isCurrentEventKey = activeEventKey === eventKey;
-    return <button type="button" onClick={decoratedOnClick} aria-expanded={ isCurrentEventKey ? true : false } className="edu-accordion-button">{children}</button>
-}
-
-const CurriculumContent = () => {
-    const [activeId, setActiveId] = useState( '0' );
-
-    function toggleActive( id ) {
-        if (activeId === id) {
-            setActiveId(null);
-        } else {
-            setActiveId(id);
-        }
-    }
-
-    return (
-        <Accordion bsPrefix="edu-accordion-02" defaultActiveKey={activeId} flush>
-            {
-                CurriculumTabContent.map( ( accordion, i ) => (
-                    <Accordion.Item eventKey={i.toString()} key={i} onClick={() => toggleActive(i.toString())} bsPrefix={`edu-accordion-item ${activeId === i.toString() ? 'bg-active' : ''}`}>
-                        <div className="edu-accordion-header">
-                            <CustomToggle eventKey={i.toString()}>{accordion.title}</CustomToggle>
-                        </div>
-                        <Accordion.Body bsPrefix="edu-accordion-body">
-                            <ul>
-                                { 
-                                    accordion.content.map( ( title, index ) => (
-                                        <li key={index}>
-                                            <div className="text"><i className="icon-draft-line"></i>{title}</div>
-                                            <div className="icon"><i className="icon-lock-password-line"></i></div>
-                                        </li>
-                                    ) )
-                                
-                                }
-                            </ul>
-                        </Accordion.Body>
-                    </Accordion.Item>
-                ) )
-            }
-        </Accordion>
-    )
-}
+const IMAGE_BASE_URL = 'http://localhost:8080';
 
 const CourseDetails = () => {
-    const { id } = useParams();
-    const courseId = parseInt( id, 10 );
-    const data = CourseData.filter( course => course.id === courseId );
-    const courseItem = data[0];
+  const { id } = useParams();
+  const [course, setCourse] = useState(null);
+  const [lessons, setLessons] = useState([]);
+  const [registered, setRegistered] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [openLessonId, setOpenLessonId] = useState(null);
+  const lessonRefs = useRef([]);
 
-    const indexOfInstructor = InstructorData.findIndex( function( instructor ) {
-        return slugify( instructor.name ) === slugify( courseItem.instructor );
-    } );
-    const instructor = InstructorData[indexOfInstructor];
-    const instructorExcerpt = instructor.details.substring(0, 190) + "...";
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/courses/${id}`)
+      .then(res => res.json())
+      .then(data => setCourse(data))
+      .catch(err => console.error('Error fetching course:', err));
 
-    const [contentTab, setContentTab] = useState( 'overview' );
-    const handleTab = ( content ) => {
-        if ( content === 'overview' ) {
-            setContentTab( 'overview' );
-        } else if ( content === 'curriculum' ) {
-            setContentTab( 'curriculum' );
-        } else if ( content === 'instructor' ) {
-            setContentTab( 'instructor' );
-        } else if ( content === 'reviews' ) {
-            setContentTab( 'reviews' );
-        }
+    fetch(`http://localhost:8080/api/lessons/course/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        const sortedLessons = Array.isArray(data)
+          ? [...data].sort((a, b) => {
+              const numA = parseInt(a.name?.match(/\d+/)?.[0]) || 0;
+              const numB = parseInt(b.name?.match(/\d+/)?.[0]) || 0;
+              return numA - numB;
+            })
+          : [];
+        setLessons(sortedLessons);
+      })
+      .catch(err => {
+        console.error('Error fetching lessons:', err);
+        setLessons([]);
+      });
+  }, [id]);
+
+  const totalLessons = lessons.length;
+
+  const getEmbedUrl = (url) => {
+    if (!url) return '';
+    try {
+      const urlObj = new URL(url);
+      const videoId = urlObj.searchParams.get('v');
+      return `https://www.youtube.com/embed/${videoId}`;
+    } catch {
+      return '';
     }
+  };
 
-    return (
-        <>
-            <SEO title={ courseItem.title } />
-            <Layout>
-                <BreadcrumbOne 
-                    title="Course Details"
-                    rootUrl="/"
-                    parentUrl="Home"
-                    currentUrl="Course Details"
-                />
-                <div className="edu-course-details-area edu-section-gap bg-color-white">
-                    <div className="container">
-                        <div className="row g-5">
-                            <div className="col-lg-12">
-                                <div className="main-image thumbnail">
-                                    <img className="radius-small" src={`${process.env.PUBLIC_URL}/images/course/course-details/${courseItem.image}`} alt="Course Thumb" />
-                                </div>
+  const getFullImageUrl = (imgPath) => {
+    if (!imgPath) return '';
+    return imgPath.startsWith('http') ? imgPath : `${IMAGE_BASE_URL}${imgPath}`;
+  };
+
+  const handleRegister = () => {
+    setRegistered(true);
+    setShowToast(true);
+    setShowAlert(true);
+
+    setTimeout(() => {
+      setShowToast(false);
+      setShowAlert(false);
+    }, 3000);
+  };
+
+  return (
+    <>
+      <HeaderTwo />
+      <BreadcrumbOne
+        title={course?.title || course?.name || 'Course Details'}
+        rootUrl="/"
+        parentUrl="Home"
+        currentUrl="Course Details"
+      />
+
+      {showToast && (
+        <div
+          className="toast show position-fixed top-0 end-0 m-4 bg-success text-white shadow"
+          role="alert"
+          style={{ zIndex: 9999 }}
+        >
+          <div className="toast-body">🎉 You have successfully registered for the course!</div>
+        </div>
+      )}
+
+      <div className="edu-course-details-area edu-section-gap bg-color-white py-5">
+        <div className="container">
+          <div className="row g-5">
+            <div className="col-xl-8 col-lg-7">
+              <div className="course-details-content">
+                <h1 className="fw-bold display-4 mb-3 text-dark text-uppercase">
+                  {course?.title || course?.name || 'Course Title'}
+                </h1>
+
+                <p className="mb-4 text-muted fs-4">{course?.description}</p>
+
+                <h4 className="mb-3 fs-3">📘 Course Content</h4>
+
+                {!registered ? (
+                  <div className="alert alert-warning fs-5">
+                    🔒 Please <strong>register for the course</strong> to view lesson content.
+                  </div>
+                ) : (
+                  <>
+                    <p className="text-muted fs-5">
+                      Total of <strong>{totalLessons}</strong> lessons
+                    </p>
+                    <div className="accordion" id="lessonAccordion">
+                      {lessons.map((lesson, idx) => {
+                        const isOpen = openLessonId === lesson.id;
+
+                        return (
+                          <div
+                            className="accordion-item"
+                            key={lesson.id}
+                            ref={el => lessonRefs.current[idx] = el}
+                          >
+                            <h2 className="accordion-header" id={`heading${lesson.id}`}>
+                              <button
+                                className={`accordion-button ${isOpen ? '' : 'collapsed'} fs-5 fw-semibold`}
+                                type="button"
+                                onClick={() => {
+                                  setOpenLessonId(isOpen ? null : lesson.id);
+                                  setTimeout(() => {
+                                    lessonRefs.current[idx]?.scrollIntoView({
+                                      behavior: 'smooth',
+                                      block: 'start'
+                                    });
+                                  }, 300);
+                                }}
+                                aria-expanded={isOpen ? 'true' : 'false'}
+                                aria-controls={`collapse${lesson.id}`}
+                              >
+                                {lesson.name || 'Untitled Lesson'}
+                              </button>
+                            </h2>
+                            <div
+                              id={`collapse${lesson.id}`}
+                              className={`accordion-collapse collapse ${isOpen ? 'show' : ''}`}
+                              aria-labelledby={`heading${lesson.id}`}
+                            >
+                              <div className="accordion-body fs-6">
+                                <p><strong>Lesson Name:</strong> {lesson.name}</p>
+                                <p><strong>Description:</strong> {lesson.description || 'No description available.'}</p>
+                                <p><strong>Date:</strong> {lesson.lessonDate ? new Date(lesson.lessonDate).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric'
+                                }) : 'No date available'}</p>
+
+                                {lesson.referenceLink && (
+                                  <div className="ratio ratio-16x9 mt-3">
+                                    <iframe
+                                      src={getEmbedUrl(lesson.referenceLink)}
+                                      title={`Video for ${lesson.name}`}
+                                      allowFullScreen
+                                    ></iframe>
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                        </div>
-
-                        <div className="row g-5">
-                            <div className="col-xl-8 col-lg-7">
-                                <div className="course-details-content">
-
-                                    <div className="content-top">
-                                        <div className="author-meta">
-                                            <div className="author-thumb">
-                                                <Link to={process.env.PUBLIC_URL + `/instructor-details/${slugify( courseItem.instructor ) }`}>
-                                                    <img src={`${process.env.PUBLIC_URL}/images/instructor/instructor-small/${instructor.image}`} alt="Author Thumb" />
-                                                    <span className="author-title">By { courseItem.instructor }</span>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className="edu-rating rating-default eduvibe-course-rating-stars">
-                                            <div className="rating eduvibe-course-rating-stars">
-                                                <i className="icon-Star"></i>
-                                                <i className="icon-Star"></i>
-                                                <i className="icon-Star"></i>
-                                                <i className="icon-Star"></i>
-                                                <i className="icon-Star"></i>
-                                            </div>
-                                            <span className="rating-count">({courseItem.review} Review)</span>
-                                        </div>
-                                    </div>
-
-                                    <h3 className="title">{ courseItem.title }</h3>
-                                    <ul className="edu-course-tab nav nav-tabs" role="tablist">
-                                        <li className="nav-item">
-                                            <button
-                                                className={contentTab === 'overview' ? 'nav-link active' : 'nav-link'}
-                                                type="button"
-                                                aria-label="Overview"
-                                                onClick={() => handleTab('overview')}
-                                            >
-                                                Overview
-                                            </button>
-                                        </li>
-                                        <li className="nav-item">
-                                            <button
-                                                className={contentTab === 'curriculum' ? 'nav-link active' : 'nav-link'}
-                                                type="button"
-                                                aria-label="Curriculum"
-                                                onClick={() => handleTab('curriculum')}
-                                            >
-                                                Curriculum
-                                            </button>
-                                        </li>
-                                        <li className="nav-item">
-                                            <button
-                                                className={contentTab === 'instructor' ? 'nav-link active' : 'nav-link'}
-                                                type="button"
-                                                aria-label="Instructor"
-                                                onClick={() => handleTab('instructor')}
-                                            >
-                                                Instructor
-                                            </button>
-                                        </li>
-                                        <li className="nav-item">
-                                            <button
-                                                className={contentTab === 'reviews' ? 'nav-link active' : 'nav-link'}
-                                                type="button"
-                                                aria-label="Reviews"
-                                                onClick={() => handleTab('reviews')}
-                                            >
-                                                Reviews
-                                            </button>
-                                        </li>
-                                    </ul>
-
-                                    <div className="tab-content">
-                                        { contentTab === 'overview' && 
-                                            <div className={`tab-pane fade show ${contentTab === 'overview' ? 'active' : '' } `}>
-                                                <div className="course-tab-content" dangerouslySetInnerHTML={{__html: courseItem.details}} />
-                                            </div>
-                                        }
-
-                                        { contentTab === 'curriculum' && 
-                                            <div className={`tab-pane fade show ${contentTab === 'curriculum' ? 'active' : '' } `}>
-                                                <div className="course-tab-content">
-                                                    <CurriculumContent />
-                                                </div>
-                                            </div>
-                                        }
-                                        
-                                        { contentTab === 'instructor' && 
-                                            <div className={`tab-pane fade show ${contentTab === 'instructor' ? 'active' : '' } `}>
-                                                <div className="course-tab-content">
-                                                    <div className="course-author-wrapper">
-                                                        <div className="thumbnail">
-                                                            <Link to={process.env.PUBLIC_URL + `/instructor-details/${slugify( courseItem.instructor ) }`}>
-                                                                <img src={`${process.env.PUBLIC_URL}/images/instructor/course-details/${instructor.image}`} alt="Author Thumb" />
-                                                            </Link>
-                                                        </div>
-                                                        <div className="author-content">
-                                                            <h6 className="title">
-                                                                <Link to={process.env.PUBLIC_URL + `/instructor-details/${slugify( courseItem.instructor ) }`}>{instructor.name}</Link>
-                                                            </h6>
-                                                            <span className="subtitle">{instructor.designation}</span>
-                                                            <p>{ instructorExcerpt }</p>
-                                                            <ul className="social-share border-style">
-                                                                <li><a href={instructor.facebookUrl}><i className="icon-Fb"></i></a></li>
-                                                                <li><a href={instructor.linkedInUrl}><i className="icon-linkedin"></i></a></li>
-                                                                <li><a href={instructor.pinterest}><i className="icon-Pinterest"></i></a></li>
-                                                                <li><a href={instructor.twitterUrl}><i className="icon-Twitter"></i></a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-
-                                        { contentTab === 'reviews' && 
-                                            <div className={`tab-pane fade show ${contentTab === 'reviews' ? 'active' : '' } `}>
-                                                <div className="course-tab-content">
-                                                    <div className="row row--30">
-                                                        <div className="col-lg-4">
-                                                            <div className="rating-box">
-                                                                <div className="rating-number">{courseItem.rating}</div>
-                                                                <div className="rating eduvibe-course-rating-stars">
-                                                                    <i className="icon-Star"></i>
-                                                                    <i className="icon-Star"></i>
-                                                                    <i className="icon-Star"></i>
-                                                                    <i className="icon-Star"></i>
-                                                                    <i className="icon-Star"></i>
-                                                                </div>
-                                                                <span>({courseItem.review} Review)</span>
-                                                            </div>
-                                                        </div>
-                                                        <div className="col-lg-8">
-                                                            <div className="review-wrapper">
-
-                                                                <div className="single-progress-bar">
-                                                                    <div className="rating-text">
-                                                                        5 <i className="icon-Star"></i>
-                                                                    </div>
-                                                                    <div className="progress">
-                                                                        <div className="progress-bar" role="progressbar" style={ {width: '100%'} } aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    </div>
-                                                                    <span className="rating-value">1</span>
-                                                                </div>
-
-                                                                <div className="single-progress-bar">
-                                                                    <div className="rating-text">
-                                                                        4 <i className="icon-Star"></i>
-                                                                    </div>
-                                                                    <div className="progress">
-                                                                        <div className="progress-bar" role="progressbar" style={ {width: '0%'} } aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    </div>
-                                                                    <span className="rating-value">0</span>
-                                                                </div>
-
-                                                                <div className="single-progress-bar">
-                                                                    <div className="rating-text">
-                                                                        3 <i className="icon-Star"></i>
-                                                                    </div>
-                                                                    <div className="progress">
-                                                                        <div className="progress-bar" role="progressbar" style={ {width: '0%'} } aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    </div>
-                                                                    <span className="rating-value">0</span>
-                                                                </div>
-
-                                                                <div className="single-progress-bar">
-                                                                    <div className="rating-text">
-                                                                        2 <i className="icon-Star"></i>
-                                                                    </div>
-                                                                    <div className="progress">
-                                                                        <div className="progress-bar" role="progressbar" style={ {width: '0%'} } aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    </div>
-                                                                    <span className="rating-value">0</span>
-                                                                </div>
-
-                                                                <div className="single-progress-bar">
-                                                                    <div className="rating-text">
-                                                                        1 <i className="icon-Star"></i>
-                                                                    </div>
-                                                                    <div className="progress">
-                                                                        <div className="progress-bar" role="progressbar" style={ {width: '0%'} } aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                    </div>
-                                                                    <span className="rating-value">0</span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="comment-wrapper pt--40">
-                                                        <div className="section-title">
-                                                            <h5 className="mb--25">Reviews</h5>
-                                                        </div>
-                                                        <div className="edu-comment">
-                                                            <div className="thumbnail">
-                                                                <img src="/images/course/student-review/student-1.png" alt="Student Thumb" />
-                                                            </div>
-                                                            <div className="comment-content">
-                                                                <div className="comment-top">
-                                                                    <h6 className="title">Elen Saspita</h6>
-                                                                    <div className="rating eduvibe-course-rating-stars">
-                                                                        <i className="icon-Star"></i>
-                                                                        <i className="icon-Star"></i>
-                                                                        <i className="icon-Star"></i>
-                                                                        <i className="icon-Star"></i>
-                                                                        <i className="icon-Star"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <span className="subtitle">“ Outstanding Course ”</span>
-                                                                <p>As Thomas pointed out, Chegg’s survey appears more like a scorecard that details obstacles and challenges that the current university undergraduate student population is going through in their universities and countries.</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-xl-4 col-lg-5">
-                                <CourseInfo data={courseItem}/>
-                            </div>
-                        </div>
-                        <div className="row">
-                            <div className="col-lg-12">
-                                <RelatedCourses courseID={ courseItem.id } />
-                            </div>
-                        </div>
+                          </div>
+                        );
+                      })}
                     </div>
+                  </>
+                )}
+              </div>
+            </div>
+
+            <div className="col-xl-4 col-lg-5">
+              <div className="card shadow-sm border-0">
+                {course?.introVideo ? (
+                  <div className="ratio ratio-16x9">
+                    <iframe
+                      src={getEmbedUrl(course.introVideo)}
+                      title="Intro video"
+                      allowFullScreen
+                    ></iframe>
+                  </div>
+                ) : (
+                  <img
+                    src={course?.imageUrl ? getFullImageUrl(course.imageUrl) : 'https://via.placeholder.com/400x200?text=Course+Image'}
+                    alt="Course thumbnail"
+                    className="card-img-top"
+                  />
+                )}
+                <div className="card-body text-center">
+                  <ul className="list-group list-group-flush text-start fs-5 mb-3">
+                    <li className="list-group-item"><strong>🧠 Level:</strong> {course?.level || 'Beginner'}</li>
+                    <li className="list-group-item"><strong>🎓 Lessons:</strong> {totalLessons}</li>
+                    <li className="list-group-item"><strong>⏱️ Duration:</strong> {course?.duration || 'Updating'}</li>
+                    <li className="list-group-item">📅 Learn anytime, anywhere</li>
+                  </ul>
+
+                  {!registered && (
+                    <>
+                      <h4 className="text-danger fw-bold mb-3 fs-3">🎁 Free</h4>
+                      <button className="btn btn-primary w-100 fs-5" onClick={handleRegister}>
+                        REGISTER NOW
+                      </button>
+                    </>
+                  )}
+
+                  {showAlert && (
+                    <div className="alert alert-success mt-3 fs-6">
+                      ✅ You have successfully registered!
+                    </div>
+                  )}
                 </div>
-            </Layout>
-        </>
-    )
-}
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <Footer />
+    </>
+  );
+};
+
 export default CourseDetails;

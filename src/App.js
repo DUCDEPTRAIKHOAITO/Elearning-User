@@ -60,6 +60,7 @@ import InstructorDetails from './pages/detailspages/InstructorDetails';
 import Error from './pages/innerpages/Error';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import SearchResultPage from './pages/SearchResultPage';
 // Import Css Here
 import './assets/scss/style.scss';
 import Login from './pages/innerpages/Login';
@@ -73,10 +74,10 @@ function App() {
             <ScrollToTop>
                 <Routes>
                     <Route exact path='/' element={<HomeFive />} />
-                    <Route exact path={`${process.env.PUBLIC_URL + '/home-1'}`} element={<HomeOne />} />
+                    {/* <Route exact path={`${process.env.PUBLIC_URL + '/home-1'}`} element={<HomeOne />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/home-2'}`} element={<HomeTwo />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/home-3'}`} element={<HomeThree />} />
-                    <Route exact path={`${process.env.PUBLIC_URL + '/home-4'}`} element={<HomeFour />} />
+                    <Route exact path={`${process.env.PUBLIC_URL + '/home-4'}`} element={<HomeFour />} /> */}
                     <Route exact path={`${process.env.PUBLIC_URL + '/home-5'}`} element={<HomeFive />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/about-us-1'}`} element={<AboutUsOne />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/about-us-2'}`} element={<AboutUsTwo />} />
@@ -84,10 +85,10 @@ function App() {
                     <Route exact path={`${process.env.PUBLIC_URL + '/coming-soon'}`} element={<ComingSoon />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/contact-me'}`} element={<ContactMe />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/contact-us'}`} element={<ContactUs />} />
-                    <Route exact path={`${process.env.PUBLIC_URL + '/course-1'}`} element={<CourseOne />} />
+                    {/* <Route exact path={`${process.env.PUBLIC_URL + '/course-1'}`} element={<CourseOne />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/course-2'}`} element={<CourseTwo />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/course-3'}`} element={<CourseThree />} />
-                    <Route exact path={`${process.env.PUBLIC_URL + '/course-4'}`} element={<CourseFour />} />
+                    <Route exact path={`${process.env.PUBLIC_URL + '/course-4'}`} element={<CourseFour />} /> */}
                     <Route exact path={`${process.env.PUBLIC_URL + '/course-5'}`} element={<CourseFive />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/course-filter-1'}`} element={<CourseFilterOne />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/course-filter-2'}`} element={<CourseFilterTwo />} />
@@ -130,7 +131,12 @@ function App() {
                     <Route exact path={`${process.env.PUBLIC_URL + '/category/:slug'}`} element={<CategoryArchive />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/tag/:slug'}`} element={<TagArchive />} />
                     <Route exact path={`${process.env.PUBLIC_URL + '/author/:slug'}`} element={<AuthorArchive />} />
+                    <Route path="/search" element={<SearchResultPage />} />
+                    {/* <Route path="/search" element={<SearchResultsPage />} /> */}
+
                     <Route path='*' element={<Error />} />
+                    
+      
                 </Routes>
             </ScrollToTop>
         </Router>

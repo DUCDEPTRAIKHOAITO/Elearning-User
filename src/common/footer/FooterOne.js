@@ -16,17 +16,17 @@ const FooterOne = () => {
                                             <img className="logo-light" src="https://th.bing.com/th/id/OIP.VO2jPcipTAcBFEbPig7gigHaHa?rs=1&pid=ImgDetMain" alt="Footer Logo" />
                                         </Link>
                                     </div>
-                                    <p className="description">It is a long established fact that a reader will be distracted by the readable content of a
-                                        page when looking at its layout. The point of using Lorem Ipsum.</p>
+                                    {/* <p className="description">It is a long established fact that a reader will be distracted by the readable content of a
+                                        page when looking at its layout. The point of using Lorem Ipsum.</p> */}
                                     <ul className="social-share">
-                                        <li><a href="#"><i className="icon-Fb"></i></a></li>
+                                        {/* <li><a href="#"><i className="icon-Fb"></i></a></li>
                                         <li><a href="#"><i className="icon-linkedin"></i></a></li>
                                         <li><a href="#"><i className="icon-Pinterest"></i></a></li>
-                                        <li><a href="#"><i className="icon-Twitter"></i></a></li>
+                                        <li><a href="#"><i className="icon-Twitter"></i></a></li> */}
                                     </ul>
                                 </div>
                             </div>
-
+{/* 
                             <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                                 <div className="edu-footer-widget explore-widget">
                                     <h5 className="widget-title">Explore</h5>
@@ -41,9 +41,9 @@ const FooterOne = () => {
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
-                            <div className="col-lg-3 col-md-6 col-sm-6 col-12">
+                            {/* <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                                 <div className="edu-footer-widget quick-link-widget">
                                     <h5 className="widget-title">Useful Links</h5>
                                     <div className="inner">
@@ -57,7 +57,7 @@ const FooterOne = () => {
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="col-lg-3 col-md-6 col-sm-6 col-12">
                                 <div className="edu-footer-widget">
@@ -65,7 +65,7 @@ const FooterOne = () => {
                                     <div className="inner">
                                         <div className="widget-information">
                                             <ul className="information-list">
-                                                <li><i className="icon-map-pin-line"></i>275 Quadra Street Victoria Road, New York
+                                                <li><i className="icon-map-pin-line"></i>Khu Công nghệ cao TP.HCM (SHTP), Xa lộ Hà Nội, P. Hiệp Phú, TP. Thủ Đức, TP.HCM
                                                 </li>
                                                 <li><i className="icon-phone-fill"></i><a href="tel: + 1 (237) 382-2839">+ 1 (237) 382-2839</a></li>
                                                 <li><i className="icon-phone-fill"></i><a href="tel: + 1 (237) 382-2840">+ 1 (237) 382-2840</a></li>
@@ -92,8 +92,8 @@ const FooterOne = () => {
                         <div className="row">
                             <div className="col-lg-12">
                                 <div className="inner text-center">
-                                    <p>Copyright 2022 <a href="#">EduVibe</a> Designed By <a href="https://themeforest.net/user/devsvibe">DevsVibe</a>. All Rights
-                                        Reserved</p>
+                                    {/* <p>Copyright 2022 <a href="#">EduVibe</a> Designed By <a href="https://themeforest.net/user/devsvibe">DevsVibe</a>. All Rights
+                                        Reserved</p> */}
                                 </div>
                             </div>
                         </div>
