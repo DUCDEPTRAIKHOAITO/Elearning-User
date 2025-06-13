@@ -17,6 +17,18 @@ const CourseDetails = () => {
   const [openLessonId, setOpenLessonId] = useState(null);
   const lessonRefs = useRef([]);
 
+  // Định nghĩa hàm getEmbedUrl
+  const getEmbedUrl = (url) => {
+    if (!url) return '';
+    try {
+      const urlObj = new URL(url);
+      const videoId = urlObj.searchParams.get('v');
+      return `https://www.youtube.com/embed/${videoId}`;
+    } catch {
+      return '';
+    }
+  };
+
   useEffect(() => {
     fetch(`http://localhost:8080/api/courses/${id}`)
       .then(res => res.json())
@@ -41,28 +53,9 @@ const CourseDetails = () => {
       });
   }, [id]);
 
-  const totalLessons = lessons.length;
-
-  const getEmbedUrl = (url) => {
-    if (!url) return '';
-    try {
-      const urlObj = new URL(url);
-      const videoId = urlObj.searchParams.get('v');
-      return `https://www.youtube.com/embed/${videoId}`;
-    } catch {
-      return '';
-    }
-  };
-
-  const getFullImageUrl = (imgPath) => {
-    if (!imgPath) return '';
-    return imgPath.startsWith('http') ? imgPath : `${IMAGE_BASE_URL}${imgPath}`;
-  };
-
-  // Sửa lại lấy learnerId từ localStorage (không lấy id từ useParams)
   const handleRegister = () => {
-    const learnerId = localStorage.getItem('learnerId'); // Lưu ý: phải lưu đúng id của learner, không phải userId
-    if (!learnerId) {
+    const user = JSON.parse(localStorage.getItem('user')) || JSON.parse(sessionStorage.getItem('user'));
+    if (!user || !user.id || user.role !== 'Learner') {
       alert('Bạn cần đăng nhập tài khoản học viên trước khi đăng ký!');
       return;
     }
@@ -71,10 +64,11 @@ const CourseDetails = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${user.token}`, // Nếu backend yêu cầu token
       },
       body: JSON.stringify({
-        learnerId: learnerId, // Đúng id của learner
-        courseId: id,         // id của khóa học hiện tại
+        learnerId: user.id, // Lấy learnerId từ user đã đăng nhập
+        courseId: id,       // ID của khóa học
       }),
     })
       .then(response => {
@@ -106,7 +100,6 @@ const CourseDetails = () => {
         parentUrl="Home"
         currentUrl="Course Details"
       />
-
       {showToast && (
         <div
           className="toast show position-fixed top-0 end-0 m-4 bg-success text-white shadow"
@@ -125,7 +118,6 @@ const CourseDetails = () => {
                 <h1 className="fw-bold display-4 mb-3 text-dark text-uppercase">
                   {course?.title || course?.name || 'Course Title'}
                 </h1>
-
                 <p className="mb-4 text-muted fs-4">{course?.description}</p>
 
                 <h4 className="mb-3 fs-3">📘 Course Content</h4>
@@ -137,30 +129,21 @@ const CourseDetails = () => {
                 ) : (
                   <>
                     <p className="text-muted fs-5">
-                      Total of <strong>{totalLessons}</strong> lessons
+                      Total of <strong>{lessons.length}</strong> lessons
                     </p>
+                    {/* Render các bài học */}
                     <div className="accordion" id="lessonAccordion">
                       {lessons.map((lesson, idx) => {
                         const isOpen = openLessonId === lesson.id;
 
                         return (
-                          <div
-                            className="accordion-item"
-                            key={lesson.id}
-                            ref={el => lessonRefs.current[idx] = el}
-                          >
+                          <div className="accordion-item" key={lesson.id}>
                             <h2 className="accordion-header" id={`heading${lesson.id}`}>
                               <button
                                 className={`accordion-button ${isOpen ? '' : 'collapsed'} fs-5 fw-semibold`}
                                 type="button"
                                 onClick={() => {
                                   setOpenLessonId(isOpen ? null : lesson.id);
-                                  setTimeout(() => {
-                                    lessonRefs.current[idx]?.scrollIntoView({
-                                      behavior: 'smooth',
-                                      block: 'start'
-                                    });
-                                  }, 300);
                                 }}
                                 aria-expanded={isOpen ? 'true' : 'false'}
                                 aria-controls={`collapse${lesson.id}`}
@@ -204,25 +187,25 @@ const CourseDetails = () => {
 
             <div className="col-xl-4 col-lg-5">
               <div className="card shadow-sm border-0">
-                {course?.introVideo ? (
-                  <div className="ratio ratio-16x9">
+                <div className="ratio ratio-16x9">
+                  {course?.introVideo ? (
                     <iframe
                       src={getEmbedUrl(course.introVideo)}
                       title="Intro video"
                       allowFullScreen
                     ></iframe>
-                  </div>
-                ) : (
-                  <img
-                    src={course?.imageUrl ? getFullImageUrl(course.imageUrl) : 'https://via.placeholder.com/400x200?text=Course+Image'}
-                    alt="Course thumbnail"
-                    className="card-img-top"
-                  />
-                )}
+                  ) : (
+                    <img
+                      src="https://via.placeholder.com/400x200?text=No+Intro+Video"
+                      alt="No intro video available"
+                      className="img-fluid"
+                    />
+                  )}
+                </div>
                 <div className="card-body text-center">
                   <ul className="list-group list-group-flush text-start fs-5 mb-3">
                     <li className="list-group-item"><strong>🧠 Level:</strong> {course?.level || 'Beginner'}</li>
-                    <li className="list-group-item"><strong>🎓 Lessons:</strong> {totalLessons}</li>
+                    <li className="list-group-item"><strong>🎓 Lessons:</strong> {lessons.length}</li>
                     <li className="list-group-item"><strong>⏱️ Duration:</strong> {course?.duration || 'Updating'}</li>
                     <li className="list-group-item">📅 Learn anytime, anywhere</li>
                   </ul>
@@ -244,7 +227,6 @@ const CourseDetails = () => {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
