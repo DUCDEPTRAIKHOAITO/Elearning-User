@@ -31,12 +31,18 @@ const LoginPage = () => {
                 const token = data.token;
                 const username = data.username || data.name || '';
 
+                console.log(data);
+
                 if (rememberMe) {
+                    localStorage.setItem('user', JSON.stringify(data));
                     localStorage.setItem('token', token);
+                    localStorage.setItem('userId', data.id || '');
                     localStorage.setItem('username', username);
                     localStorage.setItem('userEmail', email);
                 } else {
+                    sessionStorage.setItem('user', JSON.stringify(data));
                     sessionStorage.setItem('token', token);
+                    sessionStorage.setItem('userId', data.id || '');
                     sessionStorage.setItem('username', username);
                     sessionStorage.setItem('userEmail', email);
                 }
